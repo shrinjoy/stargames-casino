@@ -48,7 +48,7 @@ public class FortuneWheelManager : MonoBehaviour
 
         // increment timer once per frame
         _currentLerpRotationTime += Time.deltaTime;
-        print(_currentLerpRotationTime);
+       
         //reset values after animation is done
     	if (_currentLerpRotationTime > maxLerpRotationTime || Circle.transform.eulerAngles.z == _finalAngle) {
     	    _currentLerpRotationTime = maxLerpRotationTime;
