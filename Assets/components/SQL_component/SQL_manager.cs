@@ -12,12 +12,17 @@ public class SQL_manager : MonoBehaviour
    
      SqlConnection SQLconn;
         
-    private void Start()
+    private void Awake()
     {
         DontDestroyOnLoad(this);
         SQLconn = initSQL();
+        print(DateTime.Today.ToString("yyyy-MM-dd"));
+     
+    }
+    public void Update()
+    {
        
-        
+
     }
     //initSQL() inits the sql connection and opens it for other methods dependend on sql to run 
     public SqlConnection initSQL()
@@ -58,5 +63,65 @@ public class SQL_manager : MonoBehaviour
         sqlData.Close();    
         return false;
     }
-   
+    public string betResult(string time,int id,string gamename)
+    {
+        SqlCommand sqlCmnd = new SqlCommand();
+        SqlDataReader sqlData = null;
+        sqlCmnd.CommandTimeout = 60;
+        sqlCmnd.Connection = SQLconn;
+        sqlCmnd.CommandType = CommandType.Text;
+        if (gamename == "joker")
+        {
+            sqlCmnd.CommandText = "SELECT * FROM [star].[dbo].[resultsTaa] WHERE g_time=" + "'" + time + "'"+" and g_date="+"'"+ DateTime.Today.ToString("yyyy-MM-dd")+"'";//this is the sql command we use to get data about user
+        }
+        sqlData = sqlCmnd.ExecuteReader(CommandBehavior.SingleResult);
+        if (sqlData.Read())
+        {
+            string result = "";
+            if (gamename == "joker")
+            {
+                result = sqlData["result"].ToString();
+            }
+            
+            sqlData.Close();
+            return result;
+        }
+        sqlData.Close();
+        return null;
+    }
+    public DateTime timeForNextGame()
+    {
+        SqlCommand sqlCmnd = new SqlCommand();
+        SqlDataReader sqlData = null;
+        sqlCmnd.CommandTimeout = 60;
+        sqlCmnd.Connection = SQLconn;
+        sqlCmnd.CommandType = CommandType.Text;
+        sqlCmnd.CommandText = "SELECT * FROM [star].[dbo].[g_rule12] WHERE tag=1";//this is the sql command we use to get data about user
+        sqlData = sqlCmnd.ExecuteReader(CommandBehavior.SingleResult);
+        if (sqlData.Read())
+        {
+            if (sqlData["g_time"] != null)
+            {
+                string time = sqlData["g_time"].ToString();
+                DateTime date = DateTime.ParseExact(time, "hh:mm:ss tt", System.Globalization.CultureInfo.CurrentCulture);
+               
+                if(this.GetComponent<betManager>()!=null)
+                {
+                    this.GetComponent<betManager>().setResultData(time, Convert.ToInt32(sqlData["id"].ToString()));
+                }
+                sqlData.Close();
+                return (date.ToUniversalTime());
+            }
+            else
+            {
+                print("no tag 1");
+                sqlData.Close();
+                return DateTime.Now;
+            }
+
+        }
+        sqlData.Close();
+        return DateTime.Now;
+    }
+
 }
