@@ -13,11 +13,8 @@ public class FortuneWheelManager : MonoBehaviour
     private float _currentLerpRotationTime;
     float time;
     public AnimationCurve curve;
+    public bool isspinning=false;
     public GameObject Circle; 			// Rotatable Object with rewards
-    private void Start()
-    {
-      TurnWheel(0);
-    }
     public void TurnWheel (int stoppinganglesector)
     {
     	// Player has enough money to turn the wheel    
@@ -28,43 +25,30 @@ public class FortuneWheelManager : MonoBehaviour
     	    float randomFinalAngle = _sectorsAngles[stoppinganglesector];
         // Here we set up how many circles our wheel should rotate before stop
         _finalAngle = -(fullCircles * 360 + randomFinalAngle);
-    	    _isStarted = true;  	
-    	    
+        isspinning = true;
+
     }
-
-
     void Update ()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            TurnWheel(2);
-        }
-
-    	if (!_isStarted)
-    	    return;
-        
     	float maxLerpRotationTime = 10.0f*curve.Evaluate(time);
         time += Time.deltaTime;
-
-        // increment timer once per frame
         _currentLerpRotationTime += Time.deltaTime;
-       
-        //reset values after animation is done
-    	if (_currentLerpRotationTime > maxLerpRotationTime || Circle.transform.eulerAngles.z == _finalAngle) {
-    	    _currentLerpRotationTime = maxLerpRotationTime;
-    	    _isStarted = false;
-    	    _startAngle = _finalAngle % 360;
-    
-    	}
-    
-    	// Calculate current position using linear interpolation
+        if (_currentLerpRotationTime > maxLerpRotationTime || Circle.transform.eulerAngles.z == _finalAngle)
+        {
+            _currentLerpRotationTime = maxLerpRotationTime;
+            _isStarted = false;
+            _startAngle = _finalAngle % 360;
+            isspinning = false;
+        }
+        else
+        {
+            isspinning = true;
+        }
     	float t = _currentLerpRotationTime / maxLerpRotationTime;
-        
-    	// This formulae allows to speed up at start and speed down at the end of rotation.
-    	// Try to change this values to customize the speed
-    	t = t * t * t * (t * (6f * t - 15f) + 10f);
-    
+    	t = t * t * t * (t * (6f * t - 15f) + 10f);  
     	float angle = Mathf.Lerp (_startAngle, _finalAngle, t);
     	Circle.transform.eulerAngles = new Vector3 (0, 0, angle);
     }  
+
+
 }
