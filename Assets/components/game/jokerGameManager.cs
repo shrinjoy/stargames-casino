@@ -6,6 +6,7 @@ public class jokerGameManager : timeManager
     public TMPro.TMP_Text timer;
     public TMPro.TMP_Text resulttext;
     public bool showresult = false;
+    public int coinselected = 0;
 
     private void Update()
     {
