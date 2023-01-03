@@ -35,7 +35,10 @@ public class betButtons : MonoBehaviour,IPointerClickHandler
         }
     }
 
-   
+   public void updatebutton()
+    {
+        text.text = betplaced.ToString();
+    }
 
 
     public void placebet()
@@ -53,17 +56,10 @@ public class betButtons : MonoBehaviour,IPointerClickHandler
     public void removebet()
     {
         print("right click");
-        if(betplaced>0)
-        {
-            betplaced = betplaced - 1;
-
-        }
-     
-        if (betplaced <= 0)
-        {
+        betplaced = 0;
             panel.SetActive(false);
 
-        }
+        
         text.text = betplaced.ToString();
     }
 }
