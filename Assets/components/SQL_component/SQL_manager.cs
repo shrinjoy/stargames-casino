@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 public class SQL_manager : MonoBehaviour
 {
    
-     SqlConnection SQLconn;
+   public  SqlConnection SQLconn;
         
     private void Awake()
     {

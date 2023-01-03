@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class betManager : MonoBehaviour
 {
- [SerializeField]   string gameResultTime;
+ [SerializeField]  public string gameResultTime;
   [SerializeField]  int gameResultId;
   
     SQL_manager sqm;

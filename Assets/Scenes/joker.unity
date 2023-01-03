@@ -953,6 +953,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displaytxt: {fileID: 2094829642}
+  totalbetamount: 0
 --- !u!1 &266616075
 GameObject:
   m_ObjectHideFlags: 0
@@ -4451,6 +4452,19 @@ MonoBehaviour:
   resulttext: {fileID: 1192387178}
   showresult: 0
   coinselected: 2
+  btns:
+  - {fileID: 561297932}
+  - {fileID: 650636761}
+  - {fileID: 193377434}
+  - {fileID: 972516175}
+  - {fileID: 1939469869}
+  - {fileID: 509542589}
+  - {fileID: 402177309}
+  - {fileID: 76255106}
+  - {fileID: 1256035964}
+  - {fileID: 1770974742}
+  - {fileID: 1061312697}
+  - {fileID: 1979083491}
 --- !u!4 &1090191327
 Transform:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ public class totalbet : MonoBehaviour
 {
     // Start is called before the first frame update
    [SerializeField] TMPro.TMP_Text displaytxt;
-    int totalbetamount;
+    public int totalbetamount;
     betButtons[] gbs;
     void Start()
     {
