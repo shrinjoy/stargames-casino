@@ -81,6 +81,7 @@ public class SQL_manager : MonoBehaviour
             if (gamename == "joker")
             {
                 result = sqlData["result"].ToString();
+                sqlData.Close();
             }
             
             sqlData.Close();

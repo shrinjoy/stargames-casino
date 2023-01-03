@@ -32,7 +32,7 @@ public class FortuneWheelManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            TurnWheel(0);
+            TurnWheel(1);
         }
         float maxLerpRotationTime = 5.0f;// *curve.Evaluate(time);
         time += Time.deltaTime;

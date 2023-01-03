@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class userManager : MonoBehaviour
 {
-    [SerializeField] userData data;
+    [SerializeField]public userData data;
     public  void setUserData(string id,string name,string password,string macid)
     {
         userData xdata = new userData();
@@ -13,6 +13,20 @@ public class userManager : MonoBehaviour
         xdata.password = password;
         xdata.macid = macid;
         data = xdata;
+    }
+    private void Start()
+    {
+        userData udi = new userData();
+        udi.id = "1517001";
+        udi.password = "12345";
+        udi.name = "testuser";
+        udi.macid= "12345";
+        data = udi;
+    }
+    
+    public userData getUserData()
+    {
+        return data;
     }
 }
 [System.Serializable] 
