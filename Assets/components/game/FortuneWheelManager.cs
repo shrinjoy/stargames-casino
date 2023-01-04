@@ -34,7 +34,7 @@ public class FortuneWheelManager : MonoBehaviour
         {
             TurnWheel(1);
         }
-        float maxLerpRotationTime = 5.0f;// *curve.Evaluate(time);
+        float maxLerpRotationTime = 8.0f*curve.Evaluate(time);
         time += Time.deltaTime;
         _currentLerpRotationTime += Time.deltaTime;
         if (_currentLerpRotationTime > maxLerpRotationTime || Circle.transform.eulerAngles.z == _finalAngle)
@@ -49,7 +49,7 @@ public class FortuneWheelManager : MonoBehaviour
             isspinning = true;
         }
     	float t = _currentLerpRotationTime / maxLerpRotationTime;
-    	t = t * t * t * (t * (6f * t - 15f) + 10f) * curve.Evaluate(time);  
+    	t = t * t * t * (t * (6f * t - 15f) + 10f);  
     	float angle = Mathf.Lerp (_startAngle, _finalAngle, t);
     	Circle.transform.eulerAngles = new Vector3 (0, 0, angle);
     }  
