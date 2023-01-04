@@ -33,7 +33,7 @@ public class jokerGameManager : timeManager
         }
         if (realtime <= 10 && resultsent ==false)
         {
-            starticonanimation.SetActive(true);
+           
             bettext.text = "no more bets please ";
             sendResult();
             resultsent= true;
@@ -218,7 +218,8 @@ public class jokerGameManager : timeManager
     }
     IEnumerator showresulttext()
     {
-        starticonanimation.SetActive(false);
+        starticonanimation.SetActive(true);
+        resulttext.enabled = false;
         showresult = false;
         timer.enabled = false;
         GameObject.FindObjectOfType<FortuneWheelManager>().TurnWheel(resulttoNumber(serverresulttogameresultconverter(result)));
@@ -235,7 +236,7 @@ public class jokerGameManager : timeManager
 
         print("after while loop");
 
-
+        starticonanimation.SetActive(false);
         StartCoroutine(markeranimation());
 
 
@@ -256,7 +257,7 @@ public class jokerGameManager : timeManager
     {
         resulttext.enabled = true;
         yield return new WaitForSecondsRealtime(5.0f);
-        resulttext.enabled = false;
+        
     }
     IEnumerator markeranimation()
     {
