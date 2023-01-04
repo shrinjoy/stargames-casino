@@ -75,8 +75,11 @@ public class SQL_manager : MonoBehaviour
         sqlData = sqlCmnd.ExecuteReader(CommandBehavior.SingleResult);
         if(sqlData.Read())
         {
-            return Convert.ToInt32(sqlData["lim"].ToString());
+            int bal = Convert.ToInt32(sqlData["lim"].ToString());
+            sqlData.Close();
+            return bal;
         }
+        sqlData.Close();
         return 0;
     }
     public string betResult(string time,int id,string gamename)
