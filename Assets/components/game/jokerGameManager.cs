@@ -9,6 +9,7 @@ public class jokerGameManager : timeManager
     public TMPro.TMP_Text timer;
     public TMPro.TMP_Text resulttext;
     public GameObject resultmarker;
+    [SerializeField] TMPro.TMP_Text bettext;
     public bool showresult = false;
     public int coinselected = 0;
     [SerializeField] betButtons[] btns;
@@ -18,9 +19,13 @@ public class jokerGameManager : timeManager
     {
 
         timer.text = GameObject.FindObjectOfType<timeManager>().realtime.ToString();
-        
+        if(realtime>10)
+        {
+            bettext.text = "place your bets";
+        }
         if (realtime <= 10 && resultsent ==false)
         {
+            bettext.text = "no more bets please ";
             sendResult();
             resultsent= true;
         }
@@ -133,43 +138,43 @@ public class jokerGameManager : timeManager
      
         int sector = 0;
         //jh0 qc1 kd2 jc3 qd4 js5 kh6 qs7 qh8 kc9 jd10 ks11 
-        if(betresult=="JH")
+        if(betresult=="KS")
         {
             sector = 0;
         }
-        if (betresult == "QC")
+        if (betresult == "JH")
         {
             sector = 1;
         }
-        if (betresult == "KD")
+        if (betresult == "QC")
         {
             sector = 2;
         }
-        if (betresult == "JC")
+        if (betresult == "QD")
         {
             sector = 3;
         }
-        if (betresult == "QD")
+        if (betresult == "JS")
         {
             sector = 4;
         }
-        if (betresult == "JS")
+        if (betresult == "KH")
         {
             sector = 5;
         }
-        if (betresult == "KH")
+        if (betresult == "JC")
         {
             sector = 6;
         }
-        if (betresult == "QS")
+        if (betresult == "KD")
         {
             sector = 7;
         }
-        if (betresult == "QH")
+        if (betresult == "QS")
         {
             sector = 8;
         }
-        if (betresult == "KC")
+        if (betresult == "QH")
         {
             sector = 9;
         }
@@ -177,7 +182,7 @@ public class jokerGameManager : timeManager
         {
             sector = 10;
         }
-        if (betresult == "KS")
+        if (betresult == "KC")
         {
             sector = 11;
         }
@@ -189,8 +194,8 @@ public class jokerGameManager : timeManager
         showresult = false;
         timer.enabled = false;
         GameObject.FindObjectOfType<FortuneWheelManager>().TurnWheel(resulttoNumber(serverresulttogameresultconverter(result)));
-        result = serverresulttogameresultconverter(result); 
-        resulttext.text = serverresulttogameresultconverter(result);
+        result = serverresulttogameresultconverter(result);
+        resulttext.text = result;
         GameObject.FindObjectOfType<HistoryPanelManager>().addHistory();
         print("before while loop");
         while (GameObject.FindObjectOfType<FortuneWheelManager>().isspinning == true)
@@ -204,11 +209,9 @@ public class jokerGameManager : timeManager
 
 
         StartCoroutine(markeranimation());
-        resulttext.enabled = true;
-        yield return new WaitForSecondsRealtime(5.0f);
-        resulttext.enabled = false;
 
-      
+
+        StartCoroutine(showresulttextanimation());
 
 
         print("result shown");
@@ -217,6 +220,12 @@ public class jokerGameManager : timeManager
         timer.enabled = true;
         resultmarker.SetActive(false);
         yield return null;
+    }
+    IEnumerator showresulttextanimation()
+    {
+        resulttext.enabled = true;
+        yield return new WaitForSecondsRealtime(5.0f);
+        resulttext.enabled = false;
     }
     IEnumerator markeranimation()
     {

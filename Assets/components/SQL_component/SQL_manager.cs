@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using Unity.VisualScripting;
 using System;
 using System.Threading.Tasks;
+using static UnityEditor.ShaderData;
 
 public class SQL_manager : MonoBehaviour
 {
@@ -62,6 +63,21 @@ public class SQL_manager : MonoBehaviour
         }
         sqlData.Close();    
         return false;
+    }
+    public int balance(int termid)
+    {
+        SqlCommand sqlCmnd = new SqlCommand();
+        SqlDataReader sqlData = null;
+        sqlCmnd.CommandTimeout = 60;
+        sqlCmnd.Connection = SQLconn;
+        sqlCmnd.CommandType = CommandType.Text;
+        sqlCmnd.CommandText = "SELECT lim from [star].[dbo].[g_master] where term_id="+termid;//this is the sql command we use to get data about user
+        sqlData = sqlCmnd.ExecuteReader(CommandBehavior.SingleResult);
+        if(sqlData.Read())
+        {
+            return Convert.ToInt32(sqlData["lim"].ToString());
+        }
+        return 0;
     }
     public string betResult(string time,int id,string gamename)
     {

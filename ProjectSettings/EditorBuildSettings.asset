@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/loginPanel.unity
+    guid: 26c824535f3e17f40b9b8866f963ef61
+  - enabled: 1
     path: Assets/Scenes/joker.unity
     guid: aa8f99352d1bee24baed4f96d03f1c7a
   m_configObjects: {}

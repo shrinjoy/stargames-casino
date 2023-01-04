@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class login : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class login : MonoBehaviour
     {
         if(sqlm.canLogin(username.text.ToString(),password.text.ToString()))
         {
-            print("logged in");
+            SceneManager.LoadScene(1);
         }
         else
         {
