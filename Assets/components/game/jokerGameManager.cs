@@ -3,9 +3,6 @@ using System.Collections;
 using System.Data.SqlClient;
 using System.Data;
 using UnityEngine;
-using static UnityEditor.ShaderData;
-using Unity.Mathematics;
-using TreeEditor;
 
 public class jokerGameManager : timeManager
 {
