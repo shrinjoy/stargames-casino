@@ -13,7 +13,7 @@ public class jokerGameManager : timeManager
     public int coinselected = 0;
     [SerializeField] betButtons[] btns;
     bool resultsent = false;
-    string result;
+    public string result;
     private void Update()
     {
 
@@ -189,8 +189,9 @@ public class jokerGameManager : timeManager
         showresult = false;
         timer.enabled = false;
         GameObject.FindObjectOfType<FortuneWheelManager>().TurnWheel(resulttoNumber(serverresulttogameresultconverter(result)));
-       
+        result = serverresulttogameresultconverter(result); 
         resulttext.text = serverresulttogameresultconverter(result);
+        GameObject.FindObjectOfType<HistoryPanelManager>().addHistory();
         print("before while loop");
         while (GameObject.FindObjectOfType<FortuneWheelManager>().isspinning == true)
         {

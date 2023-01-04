@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 
 public class HistoryPanelManager : MonoBehaviour
@@ -12,6 +14,9 @@ public class HistoryPanelManager : MonoBehaviour
        // gb.transform.position = content.transform.position;
        // gb.transform.rotation = Quaternion.identity;
         gb.transform.parent = content.transform;
+        //
+       
+        gb.GetComponent<resultHistory>().setresultdata(GameObject.FindObjectOfType<betManager>().gameResultTime, GameObject.FindObjectOfType<jokerGameManager>().result);
     }
     private void Update()
     {
