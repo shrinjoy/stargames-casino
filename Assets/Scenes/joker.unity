@@ -5895,8 +5895,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: JC
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 824e68cdb3b6c5445817b525ef7535bf, type: 2}
-  m_sharedMaterial: {fileID: -5463056500724592312, guid: 824e68cdb3b6c5445817b525ef7535bf, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c20d6d0c9a174ee458b594a0751e59b9, type: 2}
+  m_sharedMaterial: {fileID: 270926926817177161, guid: c20d6d0c9a174ee458b594a0751e59b9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -9844,7 +9844,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -116, y: -66}
+  m_AnchoredPosition: {x: -51, y: -66}
   m_SizeDelta: {x: 270.84375, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1895599227
