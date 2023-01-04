@@ -18,12 +18,12 @@ public class topbarinfopanel : MonoBehaviour
     {
         int id = Convert.ToInt32(GameObject.FindObjectOfType<userManager>().getUserData().id);
         balancetext.text = GameObject.FindObjectOfType<SQL_manager>().balance(id).ToString();
-        userid.text = GameObject.FindObjectOfType<userManager>().getUserData().id;
-        gameid.text = GameObject.FindObjectOfType<betManager>().gameResultId.ToString();
+  
     }
     // Update is called once per frame
     void Update()
     {
-        
+        userid.text = GameObject.FindObjectOfType<userManager>().getUserData().id;
+        gameid.text = GameObject.FindObjectOfType<betManager>().gameResultId.ToString();
     }
 }

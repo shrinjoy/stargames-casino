@@ -12,11 +12,12 @@ public class timeManager : MonoBehaviour
     [HideInInspector]
     public int realtime;
     bool isGameSequenceRunning = false;
-  
-    void Start()
+   
+    public void Start()
     {
         timetillnextgame =GameObject.FindGameObjectWithTag("SQLmanager").GetComponent<SQL_manager>().timeForNextGame();//this.GetComponent<SQL_manager>().timeTillNextGame().Subtract(DateTime.Now);
         realtime = (int)(timetillnextgame - DateTime.Now.ToUniversalTime()).TotalSeconds;
+
     }
 
     // Update is called once per frame

@@ -16,6 +16,13 @@ public class jokerGameManager : timeManager
     bool resultsent = false;
     public string result;
     public GameObject starticonanimation;
+    private void Start()
+    {
+        base.Start();
+        GameObject.FindObjectOfType<topbarinfopanel>().updatedata();
+        GameObject.FindGameObjectWithTag("SQLmanager").GetComponent<betManager>().getResult("joker");
+
+    }
     private void Update()
     {
 
@@ -74,7 +81,7 @@ public class jokerGameManager : timeManager
             sqlCmnd.CommandType = CommandType.Text;
             sqlCmnd.CommandText = command;
             sqldata = sqlCmnd.ExecuteReader(CommandBehavior.SingleResult);
-
+            
             sqldata.Read();
             sqldata.Close();
         }
