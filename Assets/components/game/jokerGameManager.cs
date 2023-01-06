@@ -165,51 +165,51 @@ public class jokerGameManager : timeManager
      
         int sector = 0;
         //jh0 qc1 kd2 jc3 qd4 js5 kh6 qs7 qh8 kc9 jd10 ks11 
-        if(betresult=="KS")
+        if(betresult=="JH")
         {
             sector = 0;
         }
-        if (betresult == "JH")
+        if (betresult == "QC")
         {
             sector = 1;
         }
-        if (betresult == "QC")
+        if (betresult == "QD")
         {
             sector = 2;
         }
-        if (betresult == "QD")
+        if (betresult == "JS")
         {
             sector = 3;
         }
-        if (betresult == "JS")
+        if (betresult == "KH")
         {
             sector = 4;
         }
-        if (betresult == "KH")
+        if (betresult == "JC")
         {
             sector = 5;
         }
-        if (betresult == "JC")
+        if (betresult == "KD")
         {
             sector = 6;
         }
-        if (betresult == "KD")
+        if (betresult == "QS")
         {
             sector = 7;
         }
-        if (betresult == "QS")
+        if (betresult == "QH")
         {
             sector = 8;
         }
-        if (betresult == "QH")
+        if (betresult == "JD")
         {
             sector = 9;
         }
-        if (betresult == "JD")
+        if (betresult == "KC")
         {
             sector = 10;
         }
-        if (betresult == "KC")
+        if (betresult == "KS")
         {
             sector = 11;
         }
