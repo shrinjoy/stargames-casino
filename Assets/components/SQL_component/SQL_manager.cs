@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Data;
 using System.Data.SqlClient;
-using Unity.VisualScripting;
+
 using System;
-using System.Threading.Tasks;
-using static UnityEditor.ShaderData;
+
 
 public class SQL_manager : MonoBehaviour
 {

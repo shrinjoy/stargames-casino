@@ -48,18 +48,23 @@ public class betButtons : MonoBehaviour,IPointerClickHandler
             panel.SetActive(true);
             betplaced = betplaced + GameObject.FindObjectOfType<jokerGameManager>().coinselected;
             text.text = betplaced.ToString();
-        
-        
-         
-        
+       
+     //   GameObject.FindObjectOfType<repeatButton>().addbetbuttondata();
+
+
+
+
     }
     public void removebet()
     {
         print("right click");
         betplaced = 0;
-            panel.SetActive(false);
+        panel.SetActive(false);
 
-        
+     
+      
+
         text.text = betplaced.ToString();
+        //GameObject.FindObjectOfType<repeatButton>().addbetbuttondata();
     }
 }

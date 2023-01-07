@@ -21,12 +21,16 @@ public class jokerGameManager : timeManager
         base.Start();
         GameObject.FindObjectOfType<topbarinfopanel>().updatedata();
         GameObject.FindGameObjectWithTag("SQLmanager").GetComponent<betManager>().getResult("joker");
+        resulttext.enabled = true;
 
     }
     private void Update()
     {
 
-        timer.text = GameObject.FindObjectOfType<timeManager>().realtime.ToString();
+        int minutes = Mathf.FloorToInt(realtime / 60F);
+        int seconds = Mathf.FloorToInt(realtime - minutes * 60);
+        string niceTime = string.Format("{0:0}:{1:00}", minutes, seconds);
+        timer.text = niceTime;
         if(realtime>10)
         {
             
@@ -62,7 +66,7 @@ public class jokerGameManager : timeManager
         {
 
 
-            result = GameObject.FindGameObjectWithTag("SQLmanager").GetComponent<betManager>().getResult("joker");
+           
             string status = "Print";
             string gm = "gm";
             string barcode = GameObject.FindObjectOfType<userManager>().getUserData().id + DateTime.Today.ToString().Replace("/", " ").Replace(" ", "") + DateTime.UtcNow.ToString().Replace("/", " ").Replace(" ", "");
@@ -84,6 +88,10 @@ public class jokerGameManager : timeManager
             
             sqldata.Read();
             sqldata.Close();
+
+            GameObject.FindObjectOfType<repeatButton>().resetolddata();
+            GameObject.FindObjectOfType<repeatButton>().addbetbuttondata();
+            
         }
 
     }
@@ -218,14 +226,17 @@ public class jokerGameManager : timeManager
     }
     IEnumerator showresulttext()
     {
+        result = GameObject.FindGameObjectWithTag("SQLmanager").GetComponent<betManager>().getResult("joker");
+        print(result);
         starticonanimation.SetActive(true);
         resulttext.enabled = false;
+        resultmarker.SetActive(false);
         showresult = false;
         timer.enabled = false;
         GameObject.FindObjectOfType<FortuneWheelManager>().TurnWheel(resulttoNumber(serverresulttogameresultconverter(result)));
-        result = serverresulttogameresultconverter(result);
-        resulttext.text = result;
-        GameObject.FindObjectOfType<HistoryPanelManager>().addHistory();
+        
+        resulttext.text = serverresulttogameresultconverter(result);
+    
         print("before while loop");
         while (GameObject.FindObjectOfType<FortuneWheelManager>().isspinning == true)
         {
@@ -240,10 +251,12 @@ public class jokerGameManager : timeManager
         StartCoroutine(markeranimation());
 
 
-        StartCoroutine(showresulttextanimation());
+        resulttext.enabled = true;
 
 
         print("result shown");
+        result = serverresulttogameresultconverter(result);
+        GameObject.FindObjectOfType<HistoryPanelManager>().addHistory();
         resultsent = false;
         resetTimer();
         timer.enabled = true;
@@ -251,14 +264,13 @@ public class jokerGameManager : timeManager
         GameObject.FindObjectOfType<topbarinfopanel>().updatedata();
         GameObject.FindObjectOfType<clearbet>().clearbets();
         bettext.text = "place your bets";
+        foreach(betButtons btn in btns)
+        {
+            btn.removebet();
+        }
         yield return null;
     }
-    IEnumerator showresulttextanimation()
-    {
-        resulttext.enabled = true;
-        yield return new WaitForSecondsRealtime(5.0f);
-        
-    }
+   
     IEnumerator markeranimation()
     {
         resultmarker.SetActive(true);
