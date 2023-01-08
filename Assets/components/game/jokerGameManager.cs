@@ -63,6 +63,12 @@ public class jokerGameManager : timeManager
         yield return new WaitForSeconds(2);
         bettext.text = "place your bets";
     }
+    IEnumerator notenoughamountanim()
+    {
+        bettext.text = "not enough balance";
+        yield return new WaitForSeconds(2);
+        bettext.text = "no more bets please";
+    }
     public void sendResult()
     {
         if (Convert.ToInt32(GameObject.FindObjectOfType<topbarinfopanel>().balancetext.text) >= GameObject.FindObjectOfType<totalbet>().totalbetamount)
@@ -92,6 +98,10 @@ public class jokerGameManager : timeManager
             GameObject.FindObjectOfType<repeatButton>().resetolddata();
             GameObject.FindObjectOfType<repeatButton>().addbetbuttondata();
             
+        }
+        else
+        {
+            StartCoroutine(notenoughamountanim());
         }
 
     }
