@@ -1,0 +1,27 @@
+fileFormatVersion: 2
+guid: dd14b12da074e924d9b4a04b2c413b92
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Vremena Grotesk
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: cc594c7f4ab4f7d4fbffa0fbab2d0bb3, type: 3}
+  - {fileID: 12800000, guid: 64180ce37dfa31842978956e23206845, type: 3}
+  - {fileID: 12800000, guid: ad265166686472e4ebaf3074d51fb661, type: 3}
+  - {fileID: 12800000, guid: ba4402862145cc547a2b715f11b682ff, type: 3}
+  - {fileID: 12800000, guid: ccda0fb39a887404a92fee3877bb2400, type: 3}
+  - {fileID: 12800000, guid: 8a19488df24fb4447b9316a998ef4aca, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
