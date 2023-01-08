@@ -6398,6 +6398,7 @@ MonoBehaviour:
   realtime: 0
   timer: {fileID: 1895599227}
   resulttext: {fileID: 1192387178}
+  shadowresult: {fileID: 1534287398}
   resultmarker: {fileID: 1371357330}
   bettext: {fileID: 131109531}
   showresult: 0
@@ -8962,7 +8963,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1466424903
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9299,7 +9300,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 221, y: 57.2}
+  m_AnchoredPosition: {x: 221, y: 58}
   m_SizeDelta: {x: 90, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1534287398
@@ -9325,7 +9326,7 @@ MonoBehaviour:
   m_text: JC
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 391c57d70d9bbea4d91a0abedc14af26, type: 2}
-  m_sharedMaterial: {fileID: 1810112208576623475, guid: 391c57d70d9bbea4d91a0abedc14af26, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: d7781535803dda645bf87c91c06c92ed, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

@@ -8,6 +8,7 @@ public class jokerGameManager : timeManager
 {
     public TMPro.TMP_Text timer;
     public TMPro.TMP_Text resulttext;
+    public TMPro.TMP_Text shadowresult;
     public GameObject resultmarker;
     [SerializeField] TMPro.TMP_Text bettext;
     public bool showresult = false;
@@ -30,6 +31,8 @@ public class jokerGameManager : timeManager
         int minutes = Mathf.FloorToInt(realtime / 60F);
         int seconds = Mathf.FloorToInt(realtime - minutes * 60);
         string niceTime = string.Format("{0:0}:{1:00}", minutes, seconds);
+        shadowresult.text = resulttext.text;
+        shadowresult.enabled = resulttext.isActiveAndEnabled;
         timer.text = niceTime;
         if(realtime>10)
         {
