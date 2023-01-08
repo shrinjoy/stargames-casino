@@ -9,13 +9,13 @@ public class MARQUEE : MonoBehaviour
     private void Start()
     {
         startpositon = this.GetComponent<RectTransform>().position;
-        finalpos = (startpositon + new Vector3(500.0f, 0.0f, 0.0f));
+        finalpos = (startpositon + new Vector3(300.0f, 0.0f, 0.0f));
     }
     private void Update()
     {
         this.GetComponent<RectTransform>().position = Vector3.Lerp(this.GetComponent<RectTransform>().position, finalpos,Time.deltaTime*speed);
      
-        if (Vector3.Distance(this.GetComponent<RectTransform>().position, finalpos)<1.0f)
+        if (Vector3.Distance(this.GetComponent<RectTransform>().position, finalpos)<10.0f)
         {
             this.GetComponent<RectTransform>().position = startpositon;
         }

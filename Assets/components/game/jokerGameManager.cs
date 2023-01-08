@@ -65,14 +65,11 @@ public class jokerGameManager : timeManager
     }
     public void sendResult()
     {
-        if (Convert.ToInt32(GameObject.FindObjectOfType<topbarinfopanel>().balancetext.text) >= Convert.ToInt32(GameObject.FindObjectOfType<totalbet>().totalbetamount))
-        {
-
-
-           
+        if (Convert.ToInt32(GameObject.FindObjectOfType<topbarinfopanel>().balancetext.text) >= GameObject.FindObjectOfType<totalbet>().totalbetamount)
+        {      
             string status = "Print";
             string gm = "gm";
-            string barcode = GameObject.FindObjectOfType<userManager>().getUserData().id + DateTime.Today.ToString().Replace(":", " ").Replace(" ", "") + DateTime.UtcNow.ToString().Replace(":", " ").Replace(" ", "");
+            string barcode = GameObject.FindObjectOfType<userManager>().getUserData().id + DateTime.Today.ToString().Replace("/", " ").Replace(" ", "") + DateTime.UtcNow.ToString().Replace("/", " ").Replace(" ", "");
             print(barcode);
             string command = "INSERT INTO [star].[dbo].[tasp] (a00,a01,a02,a03,a04,a05,a06,a07,a08,a09,a10,a11," +
                 "tot,qty," +
@@ -91,7 +88,7 @@ public class jokerGameManager : timeManager
             
             sqldata.Read();
             sqldata.Close();
-
+            GameObject.FindGameObjectWithTag("SQLmanager").GetComponent<SQL_manager>().updatebalanceindatabase(Convert.ToInt32(GameObject.FindGameObjectWithTag("SQLmanager").GetComponent<userManager>().getUserData().id), GameObject.FindObjectOfType<totalbet>().totalbetamount);
             GameObject.FindObjectOfType<repeatButton>().resetolddata();
             GameObject.FindObjectOfType<repeatButton>().addbetbuttondata();
             
