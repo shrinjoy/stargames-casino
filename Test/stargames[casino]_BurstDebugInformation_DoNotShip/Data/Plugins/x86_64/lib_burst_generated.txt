@@ -151,6 +151,7 @@ Library: lib_burst_generated
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.VisualScripting.Core.dll
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.Burst.dll
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.Collections.dll
+--root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Assembly-CSharp.dll
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.Services.Core.Telemetry.dll
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.2D.SpriteShape.Runtime.dll
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.Services.Core.Configuration.dll
@@ -170,7 +171,6 @@ Library: lib_burst_generated
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.Services.Core.Scheduler.dll
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.2D.Tilemap.Extras.dll
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.Services.Core.Threading.dll
---root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Assembly-CSharp.dll
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.Services.Core.Device.dll
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.Services.Core.Registration.dll
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.Services.Core.Environments.dll
@@ -366,6 +366,7 @@ Library: lib_burst_generated
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.VisualScripting.Core.dll
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.Burst.dll
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.Collections.dll
+--root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Assembly-CSharp.dll
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.Services.Core.Telemetry.dll
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.2D.SpriteShape.Runtime.dll
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.Services.Core.Configuration.dll
@@ -385,7 +386,6 @@ Library: lib_burst_generated
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.Services.Core.Scheduler.dll
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.2D.Tilemap.Extras.dll
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.Services.Core.Threading.dll
---root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Assembly-CSharp.dll
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.Services.Core.Device.dll
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.Services.Core.Registration.dll
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.Services.Core.Environments.dll
@@ -582,6 +582,7 @@ Library: lib_burst_generated
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.VisualScripting.Core.dll
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.Burst.dll
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.Collections.dll
+--root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Assembly-CSharp.dll
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.Services.Core.Telemetry.dll
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.2D.SpriteShape.Runtime.dll
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.Services.Core.Configuration.dll
@@ -601,7 +602,6 @@ Library: lib_burst_generated
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.Services.Core.Scheduler.dll
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.2D.Tilemap.Extras.dll
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.Services.Core.Threading.dll
---root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Assembly-CSharp.dll
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.Services.Core.Device.dll
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.Services.Core.Registration.dll
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.Services.Core.Environments.dll
@@ -766,6 +766,7 @@ Library: lib_burst_generated
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.VisualScripting.Core.dll
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.Burst.dll
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.Collections.dll
+--root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Assembly-CSharp.dll
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.Services.Core.Telemetry.dll
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.2D.SpriteShape.Runtime.dll
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.Services.Core.Configuration.dll
@@ -785,7 +786,6 @@ Library: lib_burst_generated
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.Services.Core.Scheduler.dll
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.2D.Tilemap.Extras.dll
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.Services.Core.Threading.dll
---root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Assembly-CSharp.dll
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.Services.Core.Device.dll
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.Services.Core.Registration.dll
 --root-assembly=C:\Users\meiji\OneDrive\Documents\GitHub\stargames-casino\Temp\StagingArea\Data\Managed\Unity.Services.Core.Environments.dll
