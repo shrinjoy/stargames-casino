@@ -44,7 +44,7 @@ public class betButtons : MonoBehaviour,IPointerClickHandler
     public void placebet()
     {
        
-            print("left click");
+           
             panel.SetActive(true);
             betplaced = betplaced + GameObject.FindObjectOfType<jokerGameManager>().coinselected;
             text.text = betplaced.ToString();
@@ -57,7 +57,7 @@ public class betButtons : MonoBehaviour,IPointerClickHandler
     }
     public void removebet()
     {
-        print("right click");
+        
         betplaced = 0;
         panel.SetActive(false);
 

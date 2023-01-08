@@ -81,6 +81,11 @@ public class SQL_manager : MonoBehaviour
         sqlData.Close();
         return 0;
     }
+    public void updatebalanceindatabase(int termid)
+    {
+        int updatedbal = balance(termid);
+      
+    }
     public string betResult(string time,int id,string gamename)
     {
         SqlCommand sqlCmnd = new SqlCommand();

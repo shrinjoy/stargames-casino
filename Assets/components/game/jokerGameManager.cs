@@ -69,14 +69,14 @@ public class jokerGameManager : timeManager
            
             string status = "Print";
             string gm = "gm";
-            string barcode = GameObject.FindObjectOfType<userManager>().getUserData().id + DateTime.Today.ToString().Replace("/", " ").Replace(" ", "") + DateTime.UtcNow.ToString().Replace("/", " ").Replace(" ", "");
+            string barcode = GameObject.FindObjectOfType<userManager>().getUserData().id + DateTime.Today.ToString().Replace(":", " ").Replace(" ", "") + DateTime.UtcNow.ToString().Replace(":", " ").Replace(" ", "");
             print(barcode);
-            string command = "INSERT INTO [taas].[dbo].[tasp] (a00,a01,a02,a03,a04,a05,a06,a07,a08,a09,a10,a11," +
+            string command = "INSERT INTO [star].[dbo].[tasp] (a00,a01,a02,a03,a04,a05,a06,a07,a08,a09,a10,a11," +
                 "tot,qty," +
                 "g_date,status,ter_id,g_id,g_time,p_time,bar,gm,flag) values ("
                 + btns[0].betplaced + "," + btns[1].betplaced + "," + btns[2].betplaced + "," + btns[3].betplaced + "," + btns[4].betplaced + "," + btns[5].betplaced + "," + btns[6].betplaced + "," + btns[7].betplaced + "," + btns[8].betplaced + "," + btns[9].betplaced + "," + btns[10].betplaced + "," + btns[11].betplaced
                 + "," + GameObject.FindObjectOfType<totalbet>().totalbetamount + "," + GameObject.FindObjectOfType<totalbet>().totalbetamount + ","
-                + "'" + DateTime.Today + "'" + "," + "'" + status + "'" + "," + GameObject.FindObjectOfType<userManager>().getUserData().id + "," + GameObject.FindObjectOfType<betManager>().gameResultId + "," + "'" + GameObject.FindObjectOfType<betManager>().gameResultTime + "'" + "," + "'" + DateTime.Now + "'" + "," + "'" + barcode + "'" + "," + "'" + gm + "'" + "," + 1 + ")";
+                + "'" + DateTime.Today + "'" + "," + "'" + status + "'" + "," + GameObject.FindObjectOfType<userManager>().getUserData().id + "," + GameObject.FindObjectOfType<betManager>().gameResultId + "," + "'" + GameObject.FindObjectOfType<betManager>().gameResultTime + "'" + "," + "'" + DateTime.Now + "'" + "," + "'" + barcode + "'" + "," + "'" + gm + "'" + "," + 2 + ")";
             print(command);
             SqlCommand sqlCmnd = new SqlCommand();
             SqlDataReader sqldata = null;
