@@ -9,7 +9,7 @@ public class MARQUEE : MonoBehaviour
     private void Start()
     {
         startpositon = this.GetComponent<RectTransform>().position;
-        finalpos = (startpositon + new Vector3(300.0f, 0.0f, 0.0f));
+        finalpos = (startpositon + new Vector3(360.0f, 0.0f, 0.0f));
     }
     private void Update()
     {
