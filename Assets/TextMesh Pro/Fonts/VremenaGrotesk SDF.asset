@@ -2666,6 +2666,7 @@ Material:
     - _GlowOffset: 0.11
     - _GlowPower: 0
     - _GradientScale: 6
+    - _OutlineWidth: 0.173
     - _ScaleRatioA: 0.8333333
     - _ScaleRatioB: 0.5854167
     - _ScaleRatioC: 0.28281
@@ -2677,5 +2678,6 @@ Material:
     m_Colors:
     - _FaceColor: {r: 1, g: 1, b: 1, a: 1}
     - _GlowColor: {r: 1, g: 0, b: 0.009897232, a: 0.5}
+    - _OutlineColor: {r: 1, g: 0, b: 0, a: 1}
     - _UnderlayColor: {r: 0.5, g: 0, b: 0, a: 0.5}
   m_BuildTextureStacks: []
