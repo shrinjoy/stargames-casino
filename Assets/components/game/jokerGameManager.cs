@@ -51,10 +51,17 @@ public class jokerGameManager : timeManager
         }
     }
 
-    public void changebetplacedtext() { 
-      if(realtime>10.0f)
+    public void changebetplacedtext() {
+        if (Convert.ToInt32(GameObject.FindObjectOfType<topbarinfopanel>().balancetext.text) >= GameObject.FindObjectOfType<totalbet>().totalbetamount)
         {
-            StartCoroutine(betplacetextanim());
+            if (realtime > 10.0f)
+            {
+                StartCoroutine(betplacetextanim());
+            }
+        }
+        else
+        {
+            StartCoroutine(notenoughamountanim());
         }
     }
     IEnumerator betplacetextanim()
@@ -67,7 +74,14 @@ public class jokerGameManager : timeManager
     {
         bettext.text = "not enough balance";
         yield return new WaitForSeconds(2);
-        bettext.text = "no more bets please";
+        if (realtime < 10)
+        {
+            bettext.text = "no more bets please";
+        }
+        else
+        {
+            bettext.text = "place your bets";
+        }
     }
     public void sendResult()
     {
