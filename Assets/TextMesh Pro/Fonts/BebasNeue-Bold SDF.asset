@@ -82,6 +82,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _GradientScale: 6
+    - _OutlineWidth: 0.24
     - _ScaleRatioA: 0.8333333
     - _ScaleRatioB: 0.6770833
     - _ScaleRatioC: 0.6770833
