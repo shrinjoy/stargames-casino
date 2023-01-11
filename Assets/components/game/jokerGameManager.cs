@@ -129,7 +129,7 @@ public class jokerGameManager : timeManager
        
 
     }
-    string serverresulttogameresultconverter(string betresulttext)
+    public string serverresulttogameresultconverter(string betresulttext)
     {
         string outdata=null;
         if(betresulttext=="NR00")
