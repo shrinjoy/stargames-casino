@@ -5,9 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 0
+    path: Assets/loginPanel.unity
+    guid: 26c824535f3e17f40b9b8866f963ef61
   - enabled: 1
     path: Assets/Scenes/loginPanel.unity
-    guid: 26c824535f3e17f40b9b8866f963ef61
+    guid: 60ae819f9b64c1340ac36a23075ed49e
   - enabled: 1
     path: Assets/Scenes/joker.unity
     guid: aa8f99352d1bee24baed4f96d03f1c7a

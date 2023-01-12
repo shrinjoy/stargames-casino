@@ -48,7 +48,7 @@ public class SQL_manager : MonoBehaviour
             {
                 if(this.GetComponent<userManager>())
                 {
-                    this.GetComponent<userManager>().setUserData(sqlData["term_id"].ToString(),sqlData["term_name"].ToString(), sqlData["pass"].ToString(), sqlData["macid"].ToString());
+                    this.GetComponent<userManager>().setUserData(sqlData["term_id"].ToString(),sqlData["term_name"].ToString(), sqlData["pass"].ToString(), sqlData["macid"].ToString(), sqlData["comm"].ToString());
                 }
                 sqlData.Close();
                 return true;

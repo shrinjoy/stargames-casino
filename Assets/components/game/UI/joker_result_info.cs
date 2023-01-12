@@ -12,7 +12,9 @@ public class joker_result_info : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField]GameObject dattimeprefab;
+    [SerializeField] GameObject historyprefab;
     [SerializeField] GameObject content;
+    [SerializeField] GameObject historycontent;
     jokerGameManager jkm = new jokerGameManager();
     [SerializeField]calender cal;
     void Start()
@@ -35,12 +37,25 @@ public class joker_result_info : MonoBehaviour
             if (gb.transform.gameObject != content.transform.gameObject)
             {
                 Destroy(gb.gameObject);
-                print(gb.name);
+              
             }
         }
+       
         fetchdata(cal.date);
     }
-    public void fetchdata(string date)
+    public void gethistory()
+    {
+        foreach (Transform gb in historycontent.GetComponentsInChildren<Transform>())
+        {
+            if (gb.transform.gameObject != historycontent.transform.gameObject)
+            {
+                Destroy(gb.gameObject);
+
+            }
+        }
+        fetchdata(cal.date,1);
+    }
+    public void fetchdata(string date,int mode=0)
     {
         
 
@@ -49,14 +64,34 @@ public class joker_result_info : MonoBehaviour
         sqlCmnd.CommandTimeout = 60;
         sqlCmnd.Connection = GameObject.FindObjectOfType<SQL_manager>().SQLconn;
         sqlCmnd.CommandType = CommandType.Text;
-        sqlCmnd.CommandText = "SELECT  [g_date],[g_time],[result] FROM [star].[dbo].[resultsTaa] WHERE g_date='"+date+"'";//this is the sql command we use to get data about user
+        if (mode == 0)
+        {
+            sqlCmnd.CommandText = "SELECT  * FROM [star].[dbo].[resultsTaa] WHERE g_date='" + date + "'";//this is the sql command we use to get data about user
+        } 
+        if(mode == 1)
+        {
+            sqlCmnd.CommandText = "(SELECT TOP (100)[star].[dbo].[tasp].bar,[star].[dbo].[tasp].g_id,[star].[dbo].[tasp].tot,[star].[dbo].[tasp].status,[star].[dbo].[tasp].g_time,[star].[dbo].[tasp].p_time,[star].[dbo].[resultsTaa].result as gameresult FROM [star].[dbo].[tasp] ,[star].[dbo].[resultsTaa] where  ter_id=" + GameObject.FindObjectOfType<userManager>().getUserData().id+")";//this is the sql command we use to get data about user
+
+        }
         sqlData = sqlCmnd.ExecuteReader(CommandBehavior.SingleResult);
+    
         while(sqlData.Read())
         {
-            GameObject gb=(GameObject)Instantiate(dattimeprefab,content.transform.position,Quaternion.identity,content.transform);
-            string xdate = sqlData["g_date"].ToString();
-            string xtime = sqlData["g_time"].ToString();
-            gb.GetComponent<resultinfosetter>().setdata(xdate + " " +xtime , jkm.serverresulttogameresultconverter(sqlData["result"].ToString()));
+            if (mode == 0)
+            {
+                GameObject gb = (GameObject)Instantiate(dattimeprefab, content.transform.position, Quaternion.identity, content.transform);
+                string xdate = sqlData["g_date"].ToString();
+                string xtime = sqlData["g_time"].ToString();
+                gb.GetComponent<resultinfosetter>().setdata(xdate + " " + xtime, jkm.serverresulttogameresultconverter(sqlData["result"].ToString()));
+            }
+            if(mode == 1) {
+
+                GameObject gb = (GameObject)Instantiate(historyprefab, historycontent.transform.position, Quaternion.identity, historycontent.transform);
+                print("making history");
+                gb.GetComponent<jokerhistoryobject>().setData(sqlData["bar"].ToString().Substring(6,15), sqlData["g_id"].ToString(), sqlData["tot"].ToString(), sqlData["tot"].ToString(), sqlData["status"].ToString(), "null", sqlData["g_time"].ToString(), sqlData["p_time"].ToString());
+               
+            }
+
         }
         sqlData.Close();
     }

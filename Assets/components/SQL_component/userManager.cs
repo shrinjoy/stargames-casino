@@ -5,13 +5,14 @@ using UnityEngine;
 public class userManager : MonoBehaviour
 {
     [SerializeField]public userData data;
-    public  void setUserData(string id,string name,string password,string macid)
+    public void setUserData(string id, string name, string password, string macid, string xcommpoint)
     {
         userData xdata = new userData();
         xdata.id = id;
         xdata.name = name;
         xdata.password = password;
         xdata.macid = macid;
+        xdata.commpoint = xcommpoint;
         data = xdata;
     }
     private void Start()
@@ -36,5 +37,5 @@ public struct userData
     public string name;
     public string password;
     public string macid;
-
+    public string commpoint;
 }
