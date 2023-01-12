@@ -88,7 +88,7 @@ public class joker_result_info : MonoBehaviour
 
                 GameObject gb = (GameObject)Instantiate(historyprefab, historycontent.transform.position, Quaternion.identity, historycontent.transform);
                 print("making history");
-                gb.GetComponent<jokerhistoryobject>().setData(sqlData["bar"].ToString().Substring(30).ToString(), sqlData["g_id"].ToString(), sqlData["tot"].ToString(), sqlData["tot"].ToString(), sqlData["status"].ToString(), "null", sqlData["g_time"].ToString(),sqlData["p_time"].ToString());
+                gb.GetComponent<jokerhistoryobject>().setData(sqlData["bar"].ToString().Substring(30).ToString(), sqlData["g_id"].ToString(), sqlData["tot"].ToString(), sqlData["tot"].ToString(), sqlData["status"].ToString(), jkm.serverresulttogameresultconverter(sqlData["gameresult"].ToString()), sqlData["g_time"].ToString(),sqlData["p_time"].ToString());
                
             }
 
