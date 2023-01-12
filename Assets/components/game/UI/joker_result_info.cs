@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
+using System.Globalization;
 
 public class joker_result_info : MonoBehaviour
 {
@@ -70,8 +71,7 @@ public class joker_result_info : MonoBehaviour
         } 
         if(mode == 1)
         {
-            sqlCmnd.CommandText = "(SELECT TOP (100)[star].[dbo].[tasp].bar,[star].[dbo].[tasp].g_id,[star].[dbo].[tasp].tot,[star].[dbo].[tasp].status,[star].[dbo].[tasp].g_time,[star].[dbo].[tasp].p_time,[star].[dbo].[resultsTaa].result as gameresult FROM [star].[dbo].[tasp] ,[star].[dbo].[resultsTaa] where  ter_id=" + GameObject.FindObjectOfType<userManager>().getUserData().id+")";//this is the sql command we use to get data about user
-
+            sqlCmnd.CommandText = "SELECT [star].[dbo].[tasp].bar,[star].[dbo].[tasp].g_id,[star].[dbo].[tasp].tot,[star].[dbo].[tasp].status,\r\n[star].[dbo].[tasp].g_time,[star].[dbo].[tasp].p_time,[star].[dbo].[resultsTaa].result as gameresult\r\nFROM [star].[dbo].[tasp],[star].[dbo].[resultsTaa]\r\nWHERE resultsTaa.g_date=tasp.g_date and resultsTaa.g_time=tasp.g_time and ter_id=" + GameObject.FindObjectOfType<userManager>().getUserData().id;
         }
         sqlData = sqlCmnd.ExecuteReader(CommandBehavior.SingleResult);
     
@@ -88,7 +88,7 @@ public class joker_result_info : MonoBehaviour
 
                 GameObject gb = (GameObject)Instantiate(historyprefab, historycontent.transform.position, Quaternion.identity, historycontent.transform);
                 print("making history");
-                gb.GetComponent<jokerhistoryobject>().setData(sqlData["bar"].ToString().Substring(6,15), sqlData["g_id"].ToString(), sqlData["tot"].ToString(), sqlData["tot"].ToString(), sqlData["status"].ToString(), "null", sqlData["g_time"].ToString(), sqlData["p_time"].ToString());
+                gb.GetComponent<jokerhistoryobject>().setData(sqlData["bar"].ToString().Substring(30).ToString(), sqlData["g_id"].ToString(), sqlData["tot"].ToString(), sqlData["tot"].ToString(), sqlData["status"].ToString(), "null", sqlData["g_time"].ToString(),sqlData["p_time"].ToString());
                
             }
 
