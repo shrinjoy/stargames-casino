@@ -96,6 +96,21 @@ public class SQL_manager : MonoBehaviour
         sqlData.Close();
 
     }
+    public void addubalanceindatabase(int termid, int claim)
+    {
+        int mainbal = balance(termid);
+        int updatedbal = mainbal + claim;
+        SqlCommand sqlCmnd = new SqlCommand();
+        SqlDataReader sqlData = null;
+        sqlCmnd.CommandTimeout = 60;
+        sqlCmnd.Connection = SQLconn;
+        sqlCmnd.CommandType = CommandType.Text;
+        sqlCmnd.CommandText = "UPDATE [star].[dbo].[g_master]  SET lim=" + updatedbal + " WHERE term_id=" + termid;//this is the sql command we use to get data about user
+        sqlData = sqlCmnd.ExecuteReader(CommandBehavior.SingleResult);
+        sqlData.Read();
+        sqlData.Close();
+
+    }
     public string betResult(string time,int id,string gamename)
     {
         SqlCommand sqlCmnd = new SqlCommand();

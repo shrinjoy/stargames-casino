@@ -281,10 +281,11 @@ public class jokerGameManager : timeManager
 
         print("result shown");
         result = serverresulttogameresultconverter(result);
+        getwinamount();
         GameObject.FindObjectOfType<HistoryPanelManager>().addHistory();
         resultsent = false;
         //fetch win amount here
-        getwinamount();
+      
         resetTimer();
         timer.enabled = true;
         resultmarker.SetActive(false);
@@ -304,17 +305,19 @@ public class jokerGameManager : timeManager
         SqlDataReader sqlData = null;
         sqlCmnd.CommandTimeout = 60;
         sqlCmnd.Connection = GameObject.FindObjectOfType<SQL_manager>().SQLconn;
-        sqlCmnd.CommandType = CommandType.Text;
-        sqlCmnd.CommandText = "SELECT [clm_tm] FROM [star].[dbo].[tasp] where g_id="+GameObject.FindObjectOfType<betManager>().gameResultId +" and g_time='"+ GameObject.FindObjectOfType<betManager>().gameResultTime+"'";//this is the sql command we use to get data about user
+        sqlCmnd.CommandType = CommandType.Text; 
+        sqlCmnd.CommandText = "SELECT [clm] FROM [star].[dbo].[tasp] where g_id="+GameObject.FindObjectOfType<betManager>().gameResultId +" and ter_id="+ GameObject.FindObjectOfType<userManager>().getUserData().id;//this is the sql command we use to get data about user
+        print(sqlCmnd.CommandText);
         sqlData = sqlCmnd.ExecuteReader(CommandBehavior.SingleResult);
         if (sqlData.Read())
         {
-            winamount = sqlData["clm_tm"].ToString();
-           winamounttext.text = winamount;
-            if(winamount=="NULL")
+            winamount = sqlData["clm"].ToString();
+            print("found win amount:"+winamount);
+            if(winamount==null)
             {
-               
+                winamount = "0";
             }
+            winamounttext.text = "Win:" + winamount;
         }
         sqlData.Close();
         return winamount;

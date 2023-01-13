@@ -12,7 +12,8 @@ public class jokerhistoryobject : MonoBehaviour
     [SerializeField] TMPro.TMP_Text result;
     [SerializeField] TMPro.TMP_Text drawtime;
     [SerializeField] TMPro.TMP_Text tickettime;
-    public void setData(string ticket,string game_id,string played,string won,string claimed,string results,string drawingtime,string ticket_time)
+    public string barcode;
+    public void setData(string bar,string ticket,string game_id,string played,string won,string claimed,string results,string drawingtime,string ticket_time)
     {
        tid.text = ticket;
         gid.text = game_id;
@@ -21,7 +22,8 @@ public class jokerhistoryobject : MonoBehaviour
         claim.text = claimed;   
         result.text = results;  
         drawtime.text = drawingtime;
-        tickettime.text = ticket_time;   
+        tickettime.text = ticket_time;
+        barcode = bar;
     }
 
 }
