@@ -10,6 +10,8 @@ public class jokerGameManager : timeManager
     public TMPro.TMP_Text resulttext;
     public TMPro.TMP_Text shadowresult;
     public TMPro.TMP_Text winamounttext;
+    public GameObject noinputpanel;
+    public GameObject infopanel;
     public GameObject resultmarker;
     [SerializeField] TMPro.TMP_Text bettext;
     public bool showresult = false;
@@ -43,6 +45,8 @@ public class jokerGameManager : timeManager
         {
            
             bettext.text = "no more bets please ";
+            infopanel.SetActive(false);
+            noinputpanel.SetActive(true);
             sendResult();
             resultsent= true;
         }
@@ -78,6 +82,7 @@ public class jokerGameManager : timeManager
         if (realtime < 10)
         {
             bettext.text = "no more bets please";
+            noinputpanel.SetActive(true);
         }
         else
         {
@@ -296,6 +301,7 @@ public class jokerGameManager : timeManager
         {
             btn.removebet();
         }
+        noinputpanel.SetActive(false);
         yield return null;
     }
     string getwinamount()
