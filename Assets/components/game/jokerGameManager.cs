@@ -9,6 +9,7 @@ public class jokerGameManager : timeManager
     public TMPro.TMP_Text timer;
     public TMPro.TMP_Text resulttext;
     public TMPro.TMP_Text shadowresult;
+    public TMPro.TMP_Text winamounttext;
     public GameObject resultmarker;
     [SerializeField] TMPro.TMP_Text bettext;
     public bool showresult = false;
@@ -282,6 +283,8 @@ public class jokerGameManager : timeManager
         result = serverresulttogameresultconverter(result);
         GameObject.FindObjectOfType<HistoryPanelManager>().addHistory();
         resultsent = false;
+        //fetch win amount here
+        getwinamount();
         resetTimer();
         timer.enabled = true;
         resultmarker.SetActive(false);
@@ -294,7 +297,28 @@ public class jokerGameManager : timeManager
         }
         yield return null;
     }
-   
+    string getwinamount()
+    {
+        string winamount = "0";
+        SqlCommand sqlCmnd = new SqlCommand();
+        SqlDataReader sqlData = null;
+        sqlCmnd.CommandTimeout = 60;
+        sqlCmnd.Connection = GameObject.FindObjectOfType<SQL_manager>().SQLconn;
+        sqlCmnd.CommandType = CommandType.Text;
+        sqlCmnd.CommandText = "SELECT [clm_tm] FROM [star].[dbo].[tasp] where g_id="+GameObject.FindObjectOfType<betManager>().gameResultId +" and g_time='"+ GameObject.FindObjectOfType<betManager>().gameResultTime+"'";//this is the sql command we use to get data about user
+        sqlData = sqlCmnd.ExecuteReader(CommandBehavior.SingleResult);
+        if (sqlData.Read())
+        {
+            winamount = sqlData["clm_tm"].ToString();
+           winamounttext.text = winamount;
+            if(winamount=="NULL")
+            {
+               
+            }
+        }
+        sqlData.Close();
+        return winamount;
+    }
     IEnumerator markeranimation()
     {
         resultmarker.SetActive(true);
