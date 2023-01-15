@@ -60,7 +60,8 @@ public class SQL_manager : MonoBehaviour
             }
 
         }
-        sqlData.Close();    
+        sqlData.Close();
+        sqlData.DisposeAsync();
         return false;
     }
     public int balance(int termid)
@@ -79,6 +80,7 @@ public class SQL_manager : MonoBehaviour
             return bal;
         }
         sqlData.Close();
+        sqlData.DisposeAsync();
         return 0;
     }
     public void updatebalanceindatabase(int termid,int totalbetplaced)
@@ -94,7 +96,7 @@ public class SQL_manager : MonoBehaviour
         sqlData = sqlCmnd.ExecuteReader(CommandBehavior.SingleResult);
         sqlData.Read();
         sqlData.Close();
-
+        sqlData.DisposeAsync();
     }
     public void addubalanceindatabase(int termid, int claim)
     {
@@ -109,7 +111,7 @@ public class SQL_manager : MonoBehaviour
         sqlData = sqlCmnd.ExecuteReader(CommandBehavior.SingleResult);
         sqlData.Read();
         sqlData.Close();
-
+        sqlData.DisposeAsync();
     }
     public string betResult(string time,int id,string gamename)
     {
@@ -136,6 +138,7 @@ public class SQL_manager : MonoBehaviour
             return result;
         }
         sqlData.Close();
+        sqlData.DisposeAsync();
         return null;
     }
     public DateTime timeForNextGame()
@@ -170,6 +173,7 @@ public class SQL_manager : MonoBehaviour
 
         }
         sqlData.Close();
+        sqlData.DisposeAsync();
         return DateTime.Now;
     }
 

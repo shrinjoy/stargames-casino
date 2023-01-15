@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Data;
 using UnityEngine;
 
+
 public class jokerGameManager : timeManager
 {
     public TMPro.TMP_Text timer;
@@ -20,6 +21,7 @@ public class jokerGameManager : timeManager
     bool resultsent = false;
     public string result;
     public GameObject starticonanimation;
+    string barcode;
     private void Start()
     {
         base.Start();
@@ -71,7 +73,7 @@ public class jokerGameManager : timeManager
     }
     IEnumerator betplacetextanim()
     {
-        bettext.text = "bet accepted";
+        bettext.text = "bet accepted your id:"+barcode;
         yield return new WaitForSeconds(2);
         bettext.text = "place your bets";
     }
@@ -91,18 +93,18 @@ public class jokerGameManager : timeManager
     }
     public void sendResult()
     {
-        if (Convert.ToInt32(GameObject.FindObjectOfType<topbarinfopanel>().balancetext.text) >= GameObject.FindObjectOfType<totalbet>().totalbetamount)
+        if (Convert.ToInt32(GameObject.FindObjectOfType<topbarinfopanel>().balancetext.text) >= GameObject.FindObjectOfType<totalbet>().totalbetamount && GameObject.FindObjectOfType<totalbet>().totalbetamount >0)
         {      
             string status = "Print";
             string gm = "gm";
-            string barcode = GameObject.FindObjectOfType<userManager>().getUserData().id + DateTime.Today.ToString().Replace("/", " ").Replace(" ", "") + DateTime.UtcNow.ToString().Replace("/", " ").Replace(" ", "");
-            print(barcode);
+            //string barcode = GameObject.FindObjectOfType<userManager>().getUserData().id + DateTime.Today.ToString().Replace("/", " ").Replace(" ", "") + DateTime.UtcNow.ToString().Replace("/", " ").Replace(" ", "");
+            barcode = generatebarcode();
             string command = "INSERT INTO [star].[dbo].[tasp] (a00,a01,a02,a03,a04,a05,a06,a07,a08,a09,a10,a11," +
                 "tot,qty," +
                 "g_date,status,ter_id,g_id,g_time,p_time,bar,gm,flag) values ("
                 + btns[0].betplaced + "," + btns[1].betplaced + "," + btns[2].betplaced + "," + btns[3].betplaced + "," + btns[4].betplaced + "," + btns[5].betplaced + "," + btns[6].betplaced + "," + btns[7].betplaced + "," + btns[8].betplaced + "," + btns[9].betplaced + "," + btns[10].betplaced + "," + btns[11].betplaced
                 + "," + GameObject.FindObjectOfType<totalbet>().totalbetamount + "," + GameObject.FindObjectOfType<totalbet>().totalbetamount + ","
-                + "'" + DateTime.Today + "'" + "," + "'" + status + "'" + "," + GameObject.FindObjectOfType<userManager>().getUserData().id + "," + GameObject.FindObjectOfType<betManager>().gameResultId + "," + "'" + GameObject.FindObjectOfType<betManager>().gameResultTime + "'" + "," + "'" + DateTime.Now + "'" + "," + "'" + barcode + "'" + "," + "'" + gm + "'" + "," + 2 + ")";
+                + "'" + DateTime.Today + "'" + "," + "'" + status + "'" + "," + GameObject.FindObjectOfType<userManager>().getUserData().id + "," + GameObject.FindObjectOfType<betManager>().gameResultId + "," + "'" + GameObject.FindObjectOfType<betManager>().gameResultTime + "'" + "," + "'" + DateTime.Now + "'" + "," + "'" + barcode+ "'" + "," + "'" + gm + "'" + "," + 2 + ")";
             print(command);
             SqlCommand sqlCmnd = new SqlCommand();
             SqlDataReader sqldata = null;
@@ -111,19 +113,30 @@ public class jokerGameManager : timeManager
             sqlCmnd.CommandType = CommandType.Text;
             sqlCmnd.CommandText = command;
             sqldata = sqlCmnd.ExecuteReader(CommandBehavior.SingleResult);
-            
-            sqldata.Read();
+            StartCoroutine(betplacetextanim());
             sqldata.Close();
+            sqldata.DisposeAsync();
             GameObject.FindGameObjectWithTag("SQLmanager").GetComponent<SQL_manager>().updatebalanceindatabase(Convert.ToInt32(GameObject.FindGameObjectWithTag("SQLmanager").GetComponent<userManager>().getUserData().id), GameObject.FindObjectOfType<totalbet>().totalbetamount);
             GameObject.FindObjectOfType<repeatButton>().resetolddata();
             GameObject.FindObjectOfType<repeatButton>().addbetbuttondata();
-            
+            GameObject.FindObjectOfType<topbarinfopanel>().updatedata();
+            GameObject.FindObjectOfType<totalbet>().totalbetamount = 0;
+            GameObject.FindObjectOfType<clearbet>().clearbets();
         }
         else
         {
             StartCoroutine(notenoughamountanim());
         }
 
+    }
+    public string generatebarcode()
+    {
+        string output=null;
+        string[] alphabets = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
+
+        output = alphabets[UnityEngine.Random.Range(0, alphabets.Length)] + DateTime.Now.ToString("ss")+ alphabets[UnityEngine.Random.Range(0, alphabets.Length)]+UnityEngine.Random.Range(0,9999)+ alphabets[UnityEngine.Random.Range(0, alphabets.Length)]+ alphabets[UnityEngine.Random.Range(0, alphabets.Length)]+ alphabets[UnityEngine.Random.Range(0, alphabets.Length)];
+        print(output);
+        return output;
     }
     public override void GameSequence()
     {
@@ -304,7 +317,7 @@ public class jokerGameManager : timeManager
         noinputpanel.SetActive(false);
         yield return null;
     }
-    string getwinamount()
+    void getwinamount()
     {
         string winamount = "0";
         SqlCommand sqlCmnd = new SqlCommand();
@@ -312,21 +325,19 @@ public class jokerGameManager : timeManager
         sqlCmnd.CommandTimeout = 60;
         sqlCmnd.Connection = GameObject.FindObjectOfType<SQL_manager>().SQLconn;
         sqlCmnd.CommandType = CommandType.Text; 
-        sqlCmnd.CommandText = "SELECT [clm] FROM [star].[dbo].[tasp] where g_id="+GameObject.FindObjectOfType<betManager>().gameResultId +" and ter_id="+ GameObject.FindObjectOfType<userManager>().getUserData().id;//this is the sql command we use to get data about user
+        sqlCmnd.CommandText = "SELECT [clm] FROM [star].[dbo].[tasp] where g_id="+GameObject.FindObjectOfType<betManager>().gameResultId +" and ter_id="+ GameObject.FindObjectOfType<userManager>().getUserData().id+"and status='Prize'";//this is the sql command we use to get data about user
         print(sqlCmnd.CommandText);
         sqlData = sqlCmnd.ExecuteReader(CommandBehavior.SingleResult);
-        if (sqlData.Read())
+        int intwinamount=0;
+        while (sqlData.Read())
         {
-            winamount = sqlData["clm"].ToString();
-            print("found win amount:"+winamount);
-            if(winamount==null)
-            {
-                winamount = "0";
-            }
-            winamounttext.text = "Win:" + winamount;
+
+            intwinamount += Convert.ToInt32(sqlData["clm"].ToString());
         }
         sqlData.Close();
-        return winamount;
+
+        winamounttext.text = "Win:" + intwinamount;
+     
     }
     IEnumerator markeranimation()
     {

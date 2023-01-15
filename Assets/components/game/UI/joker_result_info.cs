@@ -82,18 +82,19 @@ public class joker_result_info : MonoBehaviour
                 GameObject gb = (GameObject)Instantiate(dattimeprefab, content.transform.position, Quaternion.identity, content.transform);
                 string xdate = sqlData["g_date"].ToString();
                 string xtime = sqlData["g_time"].ToString();
-                gb.GetComponent<resultinfosetter>().setdata(xdate + " " + xtime, jkm.serverresulttogameresultconverter(sqlData["result"].ToString()));
+                gb.GetComponent<resultinfosetter>().setdata(xdate + " " + xtime, jkm.serverresulttogameresultconverter(sqlData["result"].ToString())+"-"+sqlData["status"].ToString());
             }
             if(mode == 1) {
 
                 GameObject gb = (GameObject)Instantiate(historyprefab, historycontent.transform.position, Quaternion.identity, historycontent.transform);
                 print("making history");
-                gb.GetComponent<jokerhistoryobject>().setData(sqlData["bar"].ToString(), sqlData["bar"].ToString().Substring(30).ToString(), sqlData["g_id"].ToString(), sqlData["tot"].ToString(), sqlData["clm"].ToString(), sqlData["status"].ToString(), jkm.serverresulttogameresultconverter(sqlData["gameresult"].ToString()), sqlData["g_time"].ToString(),sqlData["p_time"].ToString());
+                gb.GetComponent<jokerhistoryobject>().setData(sqlData["bar"].ToString(), sqlData["bar"].ToString(), sqlData["g_id"].ToString(), sqlData["tot"].ToString(), sqlData["clm"].ToString(), sqlData["status"].ToString(), jkm.serverresulttogameresultconverter(sqlData["gameresult"].ToString()), sqlData["g_time"].ToString(),sqlData["p_time"].ToString());
                
             }
 
         }
         sqlData.Close();
+        sqlData.DisposeAsync();
     }
 
 }

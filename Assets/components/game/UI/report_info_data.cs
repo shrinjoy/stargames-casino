@@ -37,5 +37,6 @@ public class report_info_data : MonoBehaviour
             print(sqlData["plyid"].ToString());
         }
         sqlData.Close();
+        sqlData.DisposeAsync();
     }
 }
