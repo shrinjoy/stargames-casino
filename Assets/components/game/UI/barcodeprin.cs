@@ -22,14 +22,15 @@ public class barcodeprin : MonoBehaviour
     // Update is called once per frame
     public void generateBarcode()
     {
+        string path = @"C:\barcode.png";
         texture.SetPixels32(encode(GameObject.FindObjectOfType<claimmanager>().barcode, texture.width, texture.height));
         texture.Apply();
         img.texture= texture;
         
        
         PrintDocument printdoc = new PrintDocument();
-        File.WriteAllBytes(Path.Combine(Application.persistentDataPath+"//Img1.png"), texture.EncodeToPNG());
-        System.Diagnostics.Process.Start("mspaint.exe", Path.Combine(Application.persistentDataPath + "//Img1.png"));
+        File.WriteAllBytes(path, texture.EncodeToPNG());
+        System.Diagnostics.Process.Start("mspaint.exe",path);
     }
     Color32[] encode(string barcodetoprint,int w,int h)
     {
