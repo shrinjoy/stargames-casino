@@ -6,10 +6,11 @@ public class MARQUEE : MonoBehaviour
     Vector3 startpositon;
     Vector3 finalpos;
     public float speed;
+    public float max_distance=450;
     private void Start()
     {
         startpositon = this.GetComponent<RectTransform>().position;
-        finalpos = (startpositon + new Vector3(450.0f, 0.0f, 0.0f));
+        finalpos = (startpositon + new Vector3(max_distance, 0.0f, 0.0f));
     }
     private void Update()
     {

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Data.SqlClient;
 using System.Data;
 using UnityEngine;
-
+using TMPro;
 
 public class jokerGameManager : timeManager
 {
@@ -22,6 +22,9 @@ public class jokerGameManager : timeManager
     public string result;
     public GameObject starticonanimation;
     string barcode;
+    [SerializeField]GameObject multiplier;
+    [SerializeField]GameObject multiplierscrollview;
+    [SerializeField]GameObject multipliertext;
     private void Start()
     {
         base.Start();
@@ -276,29 +279,31 @@ public class jokerGameManager : timeManager
         resultmarker.SetActive(false);
         showresult = false;
         timer.enabled = false;
-        GameObject.FindObjectOfType<FortuneWheelManager>().TurnWheel(resulttoNumber(serverresulttogameresultconverter(result)));
+        GameObject.FindObjectOfType<FortuneWheelManager>().TurnWheel(resulttoNumber(serverresulttogameresultconverter(result.Substring(0,4))));
         
-        resulttext.text = serverresulttogameresultconverter(result);
-    
+        resulttext.text = serverresulttogameresultconverter(result.Substring(0, 4));
+        multiplier.SetActive(true);
+        multiplierscrollview.SetActive(true);
+        multipliertext.SetActive(false);
         print("before while loop");
         while (GameObject.FindObjectOfType<FortuneWheelManager>().isspinning == true)
         {
             yield return new WaitForEndOfFrame();
         }
-
-
-
+        multiplierscrollview.SetActive(false);
+        multipliertext.GetComponent<TMP_Text>().text = result.Substring(4);
+        multipliertext.SetActive(true);
         print("after while loop");
 
         starticonanimation.SetActive(false);
         StartCoroutine(markeranimation());
 
-
+       
         resulttext.enabled = true;
 
 
         print("result shown");
-        result = serverresulttogameresultconverter(result);
+        result = serverresulttogameresultconverter(result.Substring(0, 4));
         getwinamount();
         GameObject.FindObjectOfType<HistoryPanelManager>().addHistory();
         resultsent = false;
@@ -314,7 +319,11 @@ public class jokerGameManager : timeManager
         {
             btn.removebet();
         }
+       
         noinputpanel.SetActive(false);
+        yield return new WaitForSeconds(7.0f);
+
+        multiplierscrollview.SetActive(false);
         yield return null;
     }
     void getwinamount()

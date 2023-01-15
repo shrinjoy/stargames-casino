@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,10 +13,11 @@ public class resultHistory : MonoBehaviour
     public void setresultdata(string xtime,string xresult)
     {
         result.text = xresult;
-        timertext.text = xtime;
+        timertext.text = DateTime.Parse(xtime).ToString("HH:mm::ss");
         if (xresult == "KS" || xresult == "QS" || xresult == "JS")
         {
             iconimage.sprite = icons[0];
+
         }
         if (xresult == "KH" || xresult == "QH" || xresult == "JH")
         {
@@ -28,6 +30,15 @@ public class resultHistory : MonoBehaviour
         if (xresult == "KC" || xresult == "QC" || xresult == "JC")
         {
             iconimage.sprite = icons[3];
+        }
+        //KS QS JS KC QC JC black
+        if (xresult=="KS" || xresult=="QS" || xresult == "JS" || xresult == "KC" || xresult == "QC" || xresult == "JC")
+        {
+            result.color = Color.black;
+        }
+        if (xresult == "KH" || xresult == "QH" || xresult == "JH" || xresult == "KD" || xresult == "QD" || xresult == "JD")
+        {
+            result.color = Color.red;
         }
     }
 }

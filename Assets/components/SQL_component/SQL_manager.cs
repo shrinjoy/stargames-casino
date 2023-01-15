@@ -130,7 +130,7 @@ public class SQL_manager : MonoBehaviour
             string result = "";
             if (gamename == "joker")
             {
-                result = sqlData["result"].ToString();
+                result = sqlData["result"].ToString()+sqlData["status"].ToString();
                 sqlData.Close();
             }
             
