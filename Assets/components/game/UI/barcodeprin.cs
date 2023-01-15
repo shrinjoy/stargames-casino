@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Drawing.Printing;
 using System.IO;
 using UnityEngine;
@@ -11,6 +12,8 @@ public class barcodeprin : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField]Texture2D texture;
     [SerializeField] RawImage img;
+    string barcode;
+    Bitmap bmp;
     void Start()
     {
         texture = new Texture2D(256,256);
@@ -22,14 +25,16 @@ public class barcodeprin : MonoBehaviour
         texture.SetPixels32(encode(GameObject.FindObjectOfType<claimmanager>().barcode, texture.width, texture.height));
         texture.Apply();
         img.texture= texture;
-        print(Application.persistentDataPath + "Img1.png");
-        File.WriteAllBytes(Path.Combine(Application.persistentDataPath + "Img1.png"),texture.EncodeToPNG());
+        
+       
         PrintDocument printdoc = new PrintDocument();
-        printdoc.DocumentName = Application.persistentDataPath + "Img1.png";
-        printdoc.Print();
+        File.WriteAllBytes(Path.Combine(Application.persistentDataPath+"//Img1.png"), texture.EncodeToPNG());
+        System.Diagnostics.Process.Start("mspaint.exe", Path.Combine(Application.persistentDataPath + "//Img1.png"));
     }
     Color32[] encode(string barcodetoprint,int w,int h)
     {
+        barcode = barcodetoprint;
+        
         BarcodeWriter wr = new BarcodeWriter
         {
             Format = BarcodeFormat.QR_CODE,

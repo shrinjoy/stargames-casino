@@ -1,4 +1,9 @@
 
+using System;
+using System.Data.Common;
+using System.Net;
+using System.Net.Mail;
+using System.Net.NetworkInformation;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -10,9 +15,26 @@ public class login : MonoBehaviour
     [SerializeField] TMPro.TMP_Text warningtext;
     SQL_manager sqlm;
     [SerializeField] Toggle rememberme;
+    [SerializeField]string macid;
+    string GetMACAddress()
+    {
+        NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
+        String sMacAddress = string.Empty;
+        foreach (NetworkInterface adapter in nics)
+        {
+            if (sMacAddress == String.Empty)// only return MAC Address from first card  
+            {
+                IPInterfaceProperties properties = adapter.GetIPProperties();
+                sMacAddress = adapter.GetPhysicalAddress().ToString();
+            }
+        }
+        return sMacAddress;
+    }
+
     private void Start()
     {
         sqlm = GameObject.FindWithTag("SQLmanager").GetComponent<SQL_manager>();
+        macid = GetMACAddress();
         if(PlayerPrefs.GetString("storedata") =="yes")
         {
             rememberme.isOn = true;
@@ -33,14 +55,11 @@ public class login : MonoBehaviour
     }                                                                              
     public void loginuser()
     {
-        if(sqlm.canLogin(username.text.ToString(),password.text.ToString()))
+        if(sqlm.canLogin(username.text.ToString(),password.text.ToString(),macid))
         {
             SceneManager.LoadScene(1);
         }
-        else
-        {
-            warningtext.text = "invalid username or password";
-        }
+        
         if(rememberme.isOn) {
             PlayerPrefs.SetString("storedata", "yes");
             PlayerPrefs.SetString("username", username.text);

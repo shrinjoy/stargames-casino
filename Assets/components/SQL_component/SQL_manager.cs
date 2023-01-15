@@ -11,7 +11,7 @@ public class SQL_manager : MonoBehaviour
 {
    
    public  SqlConnection SQLconn;
-        
+   public TMPro.TMP_Text warningtext;
     private void Awake()
     {
         DontDestroyOnLoad(this);
@@ -33,29 +33,51 @@ public class SQL_manager : MonoBehaviour
         return sqlConnection;
     }
     //canLogin() checks if user with certain id and pass is present in data base if not then it will return false other wise it will return true
-    public bool canLogin(string id,string pass)
+    public bool canLogin(string id,string pass,string macid)
     {
         SqlCommand sqlCmnd = new SqlCommand();
         SqlDataReader sqlData=null;
         sqlCmnd.CommandTimeout = 60;
         sqlCmnd.Connection = SQLconn;
         sqlCmnd.CommandType = CommandType.Text;
-        sqlCmnd.CommandText = "SELECT * FROM[star].[dbo].[g_master] WHERE term_id ="+id+" and pass ="+pass;//this is the sql command we use to get data about user
+        sqlCmnd.CommandText = "SELECT * FROM[star].[dbo].[g_master] WHERE term_id =" + id + " and pass =" +pass;//this is the sql command we use to get data about user
+        print(sqlCmnd.CommandText);
         sqlData = sqlCmnd.ExecuteReader(CommandBehavior.SingleResult);
         if (sqlData.Read())
         {
-            if (sqlData["term_id"] != null)
+            if (sqlData["pass"].ToString() == pass && sqlData["term_id"].ToString()==id)
             {
-                if(this.GetComponent<userManager>())
+                print("pass found with id");
+                if (sqlData["macid"].ToString() == macid)
                 {
-                    this.GetComponent<userManager>().setUserData(sqlData["term_id"].ToString(),sqlData["term_name"].ToString(), sqlData["pass"].ToString(), sqlData["macid"].ToString(), sqlData["comm"].ToString());
+                    print("mac id found");
+                    if (this.GetComponent<userManager>())
+                    {
+                        this.GetComponent<userManager>().setUserData(sqlData["term_id"].ToString(), sqlData["term_name"].ToString(), sqlData["pass"].ToString(), sqlData["macid"].ToString(), sqlData["comm"].ToString());
+                        sqlData.Close();
+                        sqlData.DisposeAsync();
+
+                        return true;
+                    }
                 }
-                sqlData.Close();
-                return true;
+                if (sqlData["macid"].ToString() != macid)
+                {
+                    print("invalid mac id");
+                    warningtext.text = "Please wait for admin approval";
+                    sqlData.Close();
+                    sqlData.DisposeAsync();
+                    addmacid(macid,id);
+                    return false;
+                }
+              
+                
             }
-            else
+            if (sqlData["pass"].ToString() != pass || sqlData["term_id"].ToString() != id|| sqlData["pass"].ToString()==null || sqlData["term_id"].ToString() == null)
             {
+                
+                warningtext.text = "Invalid ID or Password";
                 sqlData.Close();
+                sqlData.DisposeAsync();
                 return false;
             }
 
@@ -63,6 +85,22 @@ public class SQL_manager : MonoBehaviour
         sqlData.Close();
         sqlData.DisposeAsync();
         return false;
+    }
+    public void addmacid(string macid,string termid)
+    {
+        string command = "UPDATE [star].[dbo].[g_master] set newmacid='" + macid + "',flag=3 WHERE term_id=" + termid;
+        SqlCommand sqlCmnd = new SqlCommand();
+        SqlDataReader sqlData = null;
+        sqlCmnd.CommandTimeout = 60;
+        sqlCmnd.Connection = SQLconn;
+        sqlCmnd.CommandType = CommandType.Text;
+        sqlCmnd.CommandText =command;//this is the sql command we use to get data about user
+        sqlData = sqlCmnd.ExecuteReader(CommandBehavior.SingleResult);
+        if (sqlData.Read())
+        {
+        }
+        sqlData.Close();
+        sqlData.DisposeAsync();
     }
     public int balance(int termid)
     {
