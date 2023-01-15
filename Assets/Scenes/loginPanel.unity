@@ -966,6 +966,7 @@ MonoBehaviour:
   username: {fileID: 799730653}
   password: {fileID: 1212732329}
   warningtext: {fileID: 1826915017}
+  rememberme: {fileID: 1448988918}
 --- !u!114 &806309401
 MonoBehaviour:
   m_ObjectHideFlags: 0

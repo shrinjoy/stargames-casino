@@ -49,7 +49,7 @@ public class jokerGameManager : timeManager
             bettext.text = "no more bets please ";
             infopanel.SetActive(false);
             noinputpanel.SetActive(true);
-            sendResult();
+            //sendResult();
             resultsent= true;
         }
         if (showresult == true)
