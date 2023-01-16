@@ -11,7 +11,8 @@ public class claimmanager : MonoBehaviour
     public string barcode;
     public void claim()
     {
-        string command = "SELECT * FROM [star].[dbo].[tasp]  WHERE  ter_id="+GameObject.FindObjectOfType<userManager>().getUserData().id+" and g_id=" +gameid+ " and status='Prize'";
+        string command = "SELECT * FROM [star].[dbo].[tasp]  WHERE  ter_id="+GameObject.FindObjectOfType<userManager>().getUserData().id+" and g_id=" +gameid+ " and status='Prize' and bar='"+barcode+"'";
+        print(command);
         SqlCommand sqlCmnd = new SqlCommand();
         SqlDataReader sqlData = null;
         sqlCmnd.CommandTimeout = 60;
@@ -35,7 +36,7 @@ public class claimmanager : MonoBehaviour
     }
     void removestat()
     {
-        string command = "UPDATE [star].[dbo].[tasp] set status='Claimed' WHERE  ter_id=" + GameObject.FindObjectOfType<userManager>().getUserData().id +"and g_id="+gameid+ " and status = 'Prize'";
+        string command = "UPDATE [star].[dbo].[tasp] set status='Claimed' WHERE  ter_id=" + GameObject.FindObjectOfType<userManager>().getUserData().id +"and g_id="+gameid+ " and status = 'Prize' and bar='"+barcode+"'";
         SqlCommand sqlCmnd = new SqlCommand();
         SqlDataReader sqlData = null;
         sqlCmnd.CommandTimeout = 60;

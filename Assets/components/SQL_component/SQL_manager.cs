@@ -48,7 +48,7 @@ public class SQL_manager : MonoBehaviour
             if (sqlData["pass"].ToString() == pass && sqlData["term_id"].ToString()==id)
             {
                 print("pass found with id");
-                if (sqlData["macid"].ToString() != macid)
+                if (sqlData["macid"].ToString() == macid)
                 {
                     print("mac id found");
                     if (this.GetComponent<userManager>())

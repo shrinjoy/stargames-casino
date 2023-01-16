@@ -25,6 +25,7 @@ public class jokerGameManager : timeManager
     [SerializeField]GameObject multiplier;
     [SerializeField]GameObject multiplierscrollview;
     [SerializeField]GameObject multipliertext;
+    Coroutine cr;
     private void Start()
     {
         base.Start();
@@ -57,7 +58,8 @@ public class jokerGameManager : timeManager
         }
         if (showresult == true)
         {
-            StartCoroutine(showresulttext());
+          cr=  StartCoroutine(showresulttext());
+           
         }
     }
 
@@ -321,9 +323,9 @@ public class jokerGameManager : timeManager
         }
        
         noinputpanel.SetActive(false);
-        yield return new WaitForSeconds(7.0f);
 
         multiplierscrollview.SetActive(false);
+      
         yield return null;
     }
     void getwinamount()
