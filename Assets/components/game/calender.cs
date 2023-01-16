@@ -17,7 +17,8 @@ public class calender : MonoBehaviour
     int startingyear = 2022;
     private void Start()
     {
-        date = DateTime.Today.ToString("yyyyMMdd");
+        date = DateTime.Today.ToString("yyyy/MM/dd");
+        calenderfield.text = date.ToString();
         for(int i =0;i<100;i++)
         {
             startingyear = startingyear + 1;
@@ -25,6 +26,9 @@ public class calender : MonoBehaviour
 
         }
         year.AddOptions(years);
+       
+            
+
     }
     public void setcalender()
     {
