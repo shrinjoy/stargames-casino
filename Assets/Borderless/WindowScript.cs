@@ -66,7 +66,7 @@ public class WindowScript : MonoBehaviour, IDragHandler
         _deltaValue += data.delta;
         if (data.dragging)
         {
-            BorderlessWindow.MoveWindowPos(_deltaValue, Screen.width, Screen.height);
+          //  BorderlessWindow.MoveWindowPos(_deltaValue, Screen.width, Screen.height);
         }
     }
 }
