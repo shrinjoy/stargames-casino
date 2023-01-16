@@ -25186,7 +25186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  max_distance: 280
+  max_distance: 290
 --- !u!1 &1547288814
 GameObject:
   m_ObjectHideFlags: 0
