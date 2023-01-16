@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,7 +23,7 @@ public class jokerhistoryobject : MonoBehaviour
         claim.text = claimed;   
         result.text = results;  
         drawtime.text = drawingtime;
-        tickettime.text = ticket_time;
+        tickettime.text = DateTime.Parse(ticket_time).ToString("HH:mm:ss tt");
         barcode = bar;
     }
 

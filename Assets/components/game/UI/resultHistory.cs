@@ -13,7 +13,7 @@ public class resultHistory : MonoBehaviour
     public void setresultdata(string xtime,string xresult)
     {
         result.text = xresult;
-        timertext.text = DateTime.Parse(xtime).ToString("HH:mm::ss");
+        timertext.text = DateTime.Parse(xtime).ToString("HH:mm");
         if (xresult == "KS" || xresult == "QS" || xresult == "JS")
         {
             iconimage.sprite = icons[0];
