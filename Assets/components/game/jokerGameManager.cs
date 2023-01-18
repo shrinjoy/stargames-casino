@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Data;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class jokerGameManager : timeManager
 {
@@ -22,17 +23,67 @@ public class jokerGameManager : timeManager
     public string result;
     public GameObject starticonanimation;
     string barcode;
+    bool isdoneplayingtick=false;
     [SerializeField]GameObject multiplier;
     [SerializeField]GameObject multiplierscrollview;
     [SerializeField]GameObject multipliertext;
     Coroutine cr;
+    [SerializeField] Toggle autoclaimbets;
+    [SerializeField] AudioClip spinnersound;
+    [SerializeField] AudioClip nomorebet;
+    [SerializeField] AudioClip placeyourbets;
+    [SerializeField] AudioClip resultmarkerding;
+    [SerializeField] AudioClip seceighttick;
+    [SerializeField] AudioClip betaccepted;
     private void Start()
     {
         base.Start();
         GameObject.FindObjectOfType<topbarinfopanel>().updatedata();
         GameObject.FindGameObjectWithTag("SQLmanager").GetComponent<betManager>().getResult("joker");
         resulttext.enabled = true;
+        this.GetComponent<AudioSource>().clip = placeyourbets;
+        this.GetComponent<AudioSource>().Play();
+    }
+    public void autoclaim()
+    {
+        string command = "SELECT SUM(clm) as totalclaim  FROM [star].[dbo].[tasp]  WHERE  ter_id=" + GameObject.FindObjectOfType<userManager>().getUserData().id + " and status = 'Prize'";
+        SqlCommand sqlCmnd = new SqlCommand();
+        SqlDataReader sqlData = null;
+        sqlCmnd.CommandTimeout = 60;
+        sqlCmnd.Connection = GameObject.FindObjectOfType<SQL_manager>().SQLconn;
+        sqlCmnd.CommandType = CommandType.Text;
+        sqlCmnd.CommandText = command;//this is the sql command we use to get data about user
+        sqlData = sqlCmnd.ExecuteReader(CommandBehavior.SingleResult);
+        int betamountwon = 0;
+        if (sqlData.Read())
+        {
 
+            betamountwon = Convert.ToInt32(sqlData["totalclaim"].ToString());
+
+        }
+        sqlData.Close();
+        sqlData.DisposeAsync();
+
+        GameObject.FindObjectOfType<SQL_manager>().addubalanceindatabase(Convert.ToInt32(GameObject.FindObjectOfType<userManager>().getUserData().id), betamountwon);
+        GameObject.FindObjectOfType<topbarinfopanel>().updatedata();
+        resetclaims();
+    }
+    public void resetclaims()
+    {
+        string command = "UPDATE [star].[dbo].[tasp] set status='Claimed' WHERE  ter_id=" + GameObject.FindObjectOfType<userManager>().getUserData().id + " and status = 'Prize'";
+        SqlCommand sqlCmnd = new SqlCommand();
+        SqlDataReader sqlData = null;
+        sqlCmnd.CommandTimeout = 60;
+        sqlCmnd.Connection = GameObject.FindObjectOfType<SQL_manager>().SQLconn;
+        sqlCmnd.CommandType = CommandType.Text;
+        sqlCmnd.CommandText = command;//this is the sql command we use to get data about user
+        sqlData = sqlCmnd.ExecuteReader(CommandBehavior.SingleResult);
+        while (sqlData.Read()) { 
+        
+        }
+
+        sqlData.Close();
+        sqlData.DisposeAsync();
     }
     private void Update()
     {
@@ -45,7 +96,7 @@ public class jokerGameManager : timeManager
         timer.text = niceTime;
         if(realtime>10)
         {
-            
+            isdoneplayingtick = false;
         }
         if (realtime <= 10 && resultsent ==false)
         {
@@ -53,12 +104,23 @@ public class jokerGameManager : timeManager
             bettext.text = "no more bets please ";
             infopanel.SetActive(false);
             noinputpanel.SetActive(true);
+            this.GetComponent<AudioSource>().clip = nomorebet;
+            this.GetComponent<AudioSource>().Play();
             //sendResult();
-            resultsent= true;
+            resultsent = true;
+        }
+        if(realtime<9 && isdoneplayingtick == false)
+        {
+          
+            this.GetComponent<AudioSource>().clip = seceighttick;
+            this.GetComponent<AudioSource>().Play();
+            isdoneplayingtick = true;
         }
         if (showresult == true)
         {
-          cr=  StartCoroutine(showresulttext());
+            this.GetComponent<AudioSource>().clip = spinnersound;
+            this.GetComponent<AudioSource>().Play();
+            cr =  StartCoroutine(showresulttext());
            
         }
     }
@@ -91,6 +153,7 @@ public class jokerGameManager : timeManager
             bettext.text = "no more bets please";
             noinputpanel.SetActive(true);
         }
+
         else
         {
             bettext.text = "place your bets";
@@ -127,6 +190,8 @@ public class jokerGameManager : timeManager
             GameObject.FindObjectOfType<topbarinfopanel>().updatedata();
             GameObject.FindObjectOfType<totalbet>().totalbetamount = 0;
             GameObject.FindObjectOfType<clearbet>().clearbets();
+            this.GetComponent<AudioSource>().clip = betaccepted;
+            this.GetComponent<AudioSource>().Play();
         }
         else
         {
@@ -288,8 +353,11 @@ public class jokerGameManager : timeManager
         multiplierscrollview.SetActive(true);
         multipliertext.SetActive(false);
         print("before while loop");
+       
         while (GameObject.FindObjectOfType<FortuneWheelManager>().isspinning == true)
         {
+          
+         
             yield return new WaitForEndOfFrame();
         }
         multiplierscrollview.SetActive(false);
@@ -300,7 +368,7 @@ public class jokerGameManager : timeManager
         starticonanimation.SetActive(false);
         StartCoroutine(markeranimation());
 
-       
+
         resulttext.enabled = true;
 
 
@@ -313,7 +381,7 @@ public class jokerGameManager : timeManager
       
         resetTimer();
         timer.enabled = true;
-        resultmarker.SetActive(false);
+      
         GameObject.FindObjectOfType<topbarinfopanel>().updatedata();
         GameObject.FindObjectOfType<clearbet>().clearbets();
         bettext.text = "place your bets";
@@ -323,8 +391,15 @@ public class jokerGameManager : timeManager
         }
        
         noinputpanel.SetActive(false);
-
+        
         multiplierscrollview.SetActive(false);
+        yield return new WaitForSeconds(3.0f);
+        this.GetComponent<AudioSource>().clip = placeyourbets;
+        this.GetComponent<AudioSource>().Play();
+        if (autoclaimbets.isOn==true)
+        {
+            autoclaim();
+        }
       
         yield return null;
     }
@@ -346,21 +421,25 @@ public class jokerGameManager : timeManager
             intwinamount += Convert.ToInt32(sqlData["clm"].ToString());
         }
         sqlData.Close();
-
+        sqlData.DisposeAsync();
         winamounttext.text = "Win:" + intwinamount;
      
     }
     IEnumerator markeranimation()
     {
+        this.GetComponent<AudioSource>().clip = resultmarkerding;
+        this.GetComponent<AudioSource>().Play();
         resultmarker.SetActive(true);
-        yield return new WaitForSecondsRealtime(0.5f);
+        yield return new WaitForSecondsRealtime(0.4f);
         resultmarker.SetActive(false);
-        yield return new WaitForSecondsRealtime(0.5f);
+        yield return new WaitForSecondsRealtime(0.4f);
         resultmarker.SetActive(true);
-        yield return new WaitForSecondsRealtime(0.5f);
+        yield return new WaitForSecondsRealtime(0.4f);
         resultmarker.SetActive(false);
-        yield return new WaitForSecondsRealtime(0.5f);
+        yield return new WaitForSecondsRealtime(0.4f);
         resultmarker.SetActive(true);
-      
+     
+
+
     }
 }

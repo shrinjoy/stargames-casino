@@ -18,6 +18,7 @@ public class randombutton : MonoBehaviour
     }
     public void placerandombets()
     {
+        GetComponentInParent<AudioSource>().Play();
         generatednumbers.Clear();
         for(int i=0;i<betsplaceable;i++)
         {

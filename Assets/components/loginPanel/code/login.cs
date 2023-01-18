@@ -16,6 +16,7 @@ public class login : MonoBehaviour
     SQL_manager sqlm;
     [SerializeField] Toggle rememberme;
     [SerializeField]string macid;
+    [SerializeField] AudioSource asa;
     string GetMACAddress()
     {
         NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
@@ -57,6 +58,7 @@ public class login : MonoBehaviour
     {
         if(sqlm.canLogin(username.text.ToString(),password.text.ToString(),macid))
         {
+            asa.Play();
             SceneManager.LoadScene(1);
         }
         

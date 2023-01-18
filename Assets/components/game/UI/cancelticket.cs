@@ -9,6 +9,8 @@ public class cancelticket : MonoBehaviour
 {
     public void cancel()
     {
+       
+        this.GetComponent<AudioSource>().Play();
         int totalbetplaced=0;
         string command = "UPDATE [star].[dbo].[tasp] set status='Canceled' WHERE status='Print' and ter_id="+GameObject.FindObjectOfType<userManager>().getUserData().id+"and g_id="+GameObject.FindObjectOfType<claimmanager>().gameid+";";
         string command2 = "SELECT [tot] from [star].[dbo].[tasp] where status='Canceled' and ter_id=" + GameObject.FindObjectOfType<userManager>().getUserData().id + "and g_id=" + GameObject.FindObjectOfType<claimmanager>().gameid + ";";

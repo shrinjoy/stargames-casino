@@ -46,6 +46,7 @@ public class joker_result_info : MonoBehaviour
     }
     public void gethistory()
     {
+
         foreach (Transform gb in historycontent.GetComponentsInChildren<Transform>())
         {
             if (gb.transform.gameObject != historycontent.transform.gameObject)
@@ -58,7 +59,7 @@ public class joker_result_info : MonoBehaviour
     }
     public void fetchdata(string date,int mode=0)
     {
-        
+        this.GetComponentInParent<AudioSource>().Play();
 
         SqlCommand sqlCmnd = new SqlCommand();
         SqlDataReader sqlData = null;

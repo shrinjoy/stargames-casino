@@ -22,6 +22,7 @@ public class barcodeprin : MonoBehaviour
     // Update is called once per frame
     public void generateBarcode()
     {
+        this.GetComponent<AudioSource>().Play();
         string path = @"C:\barcode.png";
         texture.SetPixels32(encode(GameObject.FindObjectOfType<claimmanager>().barcode, texture.width, texture.height));
         texture.Apply();

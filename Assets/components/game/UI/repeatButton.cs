@@ -13,7 +13,8 @@ public class repeatButton : MonoBehaviour
     }
     public void repeatbets()
     {
-        foreach(betbuttondata d in data)
+        this.GetComponent<AudioSource>().Play();
+        foreach (betbuttondata d in data)
         {
             if (d.betplaced > 0)
             {

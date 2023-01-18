@@ -11,9 +11,9 @@ public class clearbet : MonoBehaviour
     }
     public void clearbets()
     {
-        
-         
-            GameObject.FindObjectOfType<repeatButton>().addbetbuttondata();
+        this.GetComponent<AudioSource>().Play();
+
+        GameObject.FindObjectOfType<repeatButton>().addbetbuttondata();
             print("saved buttons");
         
         foreach (betButtons btn in GameObject.FindObjectsOfType<betButtons>())

@@ -9,6 +9,8 @@ public class detailsbutton : MonoBehaviour
     {
         if(GameObject.FindObjectOfType<claimmanager>().gameid  != null)
         {
+            
+            this.GetComponent<AudioSource>().Play();
             detailspanel.SetActive(true);
         }
     }

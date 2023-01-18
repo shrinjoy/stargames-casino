@@ -10,6 +10,8 @@ public class Claimall : MonoBehaviour
 {
     public void claimbets()
     {
+        
+        this.GetComponentInParent<AudioSource>().Play();
         string command= "SELECT SUM(clm) as totalclaim  FROM [star].[dbo].[tasp]  WHERE  ter_id=" + GameObject.FindObjectOfType<userManager>().getUserData().id+" and status = 'Prize'";
         SqlCommand sqlCmnd = new SqlCommand();
         SqlDataReader sqlData = null;
@@ -26,6 +28,7 @@ public class Claimall : MonoBehaviour
             
         }
         sqlData.Close();
+        sqlData.DisposeAsync();
         GameObject.FindObjectOfType<SQL_manager>().addubalanceindatabase(Convert.ToInt32(GameObject.FindObjectOfType<userManager>().getUserData().id), betamountwon);
         GameObject.FindObjectOfType<topbarinfopanel>().updatedata();
         removestat();
@@ -44,5 +47,6 @@ public class Claimall : MonoBehaviour
         while (sqlData.Read()) { }
 
         sqlData.Close();
+        sqlData.DisposeAsync();
     }
 }

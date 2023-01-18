@@ -43,7 +43,7 @@ public class betButtons : MonoBehaviour,IPointerClickHandler
 
     public void placebet()
     {
-       
+        this.GetComponentInParent<AudioSource>().Play();
            
             panel.SetActive(true);
             betplaced = betplaced + GameObject.FindObjectOfType<jokerGameManager>().coinselected;

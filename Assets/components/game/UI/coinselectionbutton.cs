@@ -27,6 +27,8 @@ public class coinselectionbutton : MonoBehaviour
     public void setbetamount()
     {
         makemebigger();
+        
+        this.GetComponentInParent<AudioSource>().Play();
         GameObject.FindObjectOfType<jokerGameManager>().coinselected = buttonvalue;
     }
 }

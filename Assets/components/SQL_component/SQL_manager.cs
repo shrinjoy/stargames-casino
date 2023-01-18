@@ -115,6 +115,7 @@ public class SQL_manager : MonoBehaviour
         {
             int bal = Convert.ToInt32(sqlData["lim"].ToString());
             sqlData.Close();
+            sqlData.DisposeAsync() ;
             return bal;
         }
         sqlData.Close();
@@ -170,9 +171,11 @@ public class SQL_manager : MonoBehaviour
             {
                 result = sqlData["result"].ToString()+sqlData["status"].ToString();
                 sqlData.Close();
+                sqlData.DisposeAsync();
             }
             
             sqlData.Close();
+            sqlData.DisposeAsync();
             return result;
         }
         sqlData.Close();
@@ -200,12 +203,14 @@ public class SQL_manager : MonoBehaviour
                     this.GetComponent<betManager>().setResultData(time, Convert.ToInt32(sqlData["id"].ToString()));
                 }
                 sqlData.Close();
+                sqlData.DisposeAsync();
                 return (date.ToUniversalTime());
             }
             else
             {
                 print("no tag 1");
                 sqlData.Close();
+                sqlData.DisposeAsync();
                 return DateTime.Now;
             }
 

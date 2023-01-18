@@ -8,6 +8,7 @@ public class double_bet : MonoBehaviour
     {
          foreach(betButtons btn in GameObject.FindObjectsOfType<betButtons>())
         {
+            this.GetComponent<AudioSource>().Play();
             btn.betplaced = btn.betplaced + btn.betplaced;
             btn.updatebutton();
         }

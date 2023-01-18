@@ -11,6 +11,8 @@ public class claimmanager : MonoBehaviour
     public string barcode;
     public void claim()
     {
+        
+        this.GetComponent<AudioSource>().Play();
         string command = "SELECT * FROM [star].[dbo].[tasp]  WHERE  ter_id="+GameObject.FindObjectOfType<userManager>().getUserData().id+" and g_id=" +gameid+ " and status='Prize' and bar='"+barcode+"'";
         print(command);
         SqlCommand sqlCmnd = new SqlCommand();
@@ -28,6 +30,7 @@ public class claimmanager : MonoBehaviour
 
         }
         sqlData.Close();
+        sqlData.DisposeAsync();
         GameObject.FindObjectOfType<SQL_manager>().addubalanceindatabase(Convert.ToInt32(GameObject.FindObjectOfType<userManager>().getUserData().id), betamountwon);
         GameObject.FindObjectOfType<topbarinfopanel>().updatedata();
         
@@ -47,5 +50,6 @@ public class claimmanager : MonoBehaviour
         if (sqlData.Read()) { }
 
         sqlData.Close();
+        sqlData.DisposeAsync();
     }
 }

@@ -37,6 +37,7 @@ public class details_setter : MonoBehaviour
                 setresult(sqlData["a00"].ToString(), sqlData["a01"].ToString(), sqlData["a02"].ToString(), sqlData["a03"].ToString(), sqlData["a04"].ToString(), sqlData["a05"].ToString(), sqlData["a06"].ToString(), sqlData["a07"].ToString(), sqlData["a08"].ToString(), sqlData["a09"].ToString(), sqlData["a10"].ToString(), sqlData["a11"].ToString());
             }
             sqlData.Close();
+            sqlData.DisposeAsync();
         }
         else
         {

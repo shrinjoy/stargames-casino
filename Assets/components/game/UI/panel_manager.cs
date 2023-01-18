@@ -21,6 +21,7 @@ public class panel_manager : MonoBehaviour
             }
             else if(gb == targetpanel)
             {
+                this.GetComponentInParent<AudioSource>().Play();
                 gb.SetActive(true);
             }
         }
