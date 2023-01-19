@@ -26,7 +26,7 @@ public class WindowScript : MonoBehaviour, IDragHandler
             return;
 
         BorderlessWindow.SetFramelessWindow();
-        BorderlessWindow.MoveWindowPos(Vector2Int.zero, Screen.width - borderSize.x, Screen.height - borderSize.y);
+       // BorderlessWindow.MoveWindowPos(Vector2Int.zero, Screen.width - borderSize.x, Screen.height - borderSize.y);
     }
 
     public void ResetWindowSize()
