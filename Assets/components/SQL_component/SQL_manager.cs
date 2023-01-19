@@ -12,6 +12,10 @@ public class SQL_manager : MonoBehaviour
    
    public  SqlConnection SQLconn;
    public TMPro.TMP_Text warningtext;
+    private void OnEnable()
+    {
+        Screen.SetResolution(1024, 768,true);
+    }
     private void Awake()
     {
         DontDestroyOnLoad(this);
