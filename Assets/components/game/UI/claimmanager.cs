@@ -9,6 +9,7 @@ public class claimmanager : MonoBehaviour
 {
     public string gameid;
     public string barcode;
+    public string p_time;
     public void claim()
     {
         

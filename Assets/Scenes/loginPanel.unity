@@ -390,6 +390,18 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 286292251}
   m_Enabled: 1
+--- !u!114 &286292257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 286292251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be9c6ea359808544882f1872e76313c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &452737615
 GameObject:
   m_ObjectHideFlags: 0
@@ -3013,4 +3025,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 62434941089847015, guid: c549a943c41790347ac826e851205c01, type: 3}
       insertIndex: -1
       addedObject: {fileID: 286292256}
+    - targetCorrespondingSourceObject: {fileID: 62434941089847015, guid: c549a943c41790347ac826e851205c01, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 286292257}
   m_SourcePrefab: {fileID: 100100000, guid: c549a943c41790347ac826e851205c01, type: 3}

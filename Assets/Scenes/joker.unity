@@ -12318,6 +12318,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   texture: {fileID: 0}
   img: {fileID: 243490178}
+  btns: []
 --- !u!82 &793064128
 AudioSource:
   m_ObjectHideFlags: 0
@@ -17874,6 +17875,7 @@ MonoBehaviour:
   gameTime: 0
   realtime: 0
   timer: {fileID: 1895599227}
+  printac: {fileID: 938927640}
   resulttext: {fileID: 1192387178}
   shadowresult: {fileID: 1534287398}
   winamounttext: {fileID: 939218222}

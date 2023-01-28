@@ -5,9 +5,10 @@ using UnityEngine;
 public class claimsetter : MonoBehaviour
 {
     [SerializeField]TMPro.TMP_Text gameid;
-   public void setclaimdata()
+    [SerializeField] TMPro.TMP_Text barcode;
+    public void setclaimdata()
     {
         GameObject.FindObjectOfType<claimmanager>().gameid = gameid.text;
-        GameObject.FindObjectOfType<claimmanager>().barcode = this.GetComponent<jokerhistoryobject>().barcode;
+        GameObject.FindObjectOfType<claimmanager>().barcode = barcode.text;
     }
 }

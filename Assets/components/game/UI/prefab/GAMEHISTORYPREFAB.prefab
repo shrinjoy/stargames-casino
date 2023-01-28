@@ -312,6 +312,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameid: {fileID: 1431851332077799055}
+  barcode: {fileID: 1431851332971608159}
 --- !u!1 &1431851331440993425
 GameObject:
   m_ObjectHideFlags: 0
