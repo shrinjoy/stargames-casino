@@ -108,7 +108,7 @@ public class jokerGameManager : timeManager
         }
         if (realtime <= 10 && resultsent ==false)
         {
-           timer.color = Color.red;
+          // timer.color = Color.red;
             bettext.text = "no more bets please ";
             infopanel.SetActive(false);
             noinputpanel.SetActive(true);
@@ -396,16 +396,13 @@ public class jokerGameManager : timeManager
 
             while (GameObject.FindObjectOfType<FortuneWheelManager>().isspinning == true)
             {
-
-
                 yield return new WaitForEndOfFrame();
             }
             multiplierscrollview.SetActive(false);
             multipliertext.GetComponent<TMP_Text>().text = result.Substring(4);
             multipliertext.SetActive(true);
-            print("after while loop");
-        timer.color = Color.white;
-        starticonanimation.SetActive(false);
+            print("after while loop");      
+            starticonanimation.SetActive(false);
             this.GetComponent<AudioSource>().clip = resultmarkerding;
             this.GetComponent<AudioSource>().Play();
             resultmarker.SetActive(true);
@@ -460,7 +457,7 @@ public class jokerGameManager : timeManager
     }
     void getwinamount()
     {
-        string winamount = "0";
+        
         SqlCommand sqlCmnd = new SqlCommand();
         SqlDataReader sqlData = null;
         sqlCmnd.CommandTimeout = 60;

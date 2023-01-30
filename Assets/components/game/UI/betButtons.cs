@@ -21,6 +21,7 @@ public class betButtons : MonoBehaviour,IPointerClickHandler
     }
     public void OnPointerClick(PointerEventData eventData)
     {
+        GameObject.FindObjectOfType<jokerGameManager>().winamounttext.text ="Win:0";
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             placebet();
