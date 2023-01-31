@@ -10,6 +10,7 @@ using UnityEngine.UI;
 using ZXing;
 using ZXing.QrCode;
 using System;
+using System.Linq;
 
 public class barcodeprin : MonoBehaviour
 {
@@ -36,6 +37,7 @@ public class barcodeprin : MonoBehaviour
         string data="";
         string barcode="";
         sqlCmnd.CommandText = "SELECT * FROM [star].[dbo].[tasp] where bar='" + GameObject.FindObjectOfType<claimmanager>().barcode + "' and g_id=" + GameObject.FindObjectOfType<claimmanager>().gameid;//this is the sql command we use to get data about user
+       
         sqlData = sqlCmnd.ExecuteReader(CommandBehavior.SingleResult);
         if (sqlData.Read())
         {
@@ -45,9 +47,9 @@ public class barcodeprin : MonoBehaviour
                + "\n" + btns[02].name + ":    " + sqlData["a02"].ToString() + "        " + btns[03].name + ":    " + sqlData["a03"].ToString()
                + "\n" + btns[04].name + ":    " + sqlData["a04"].ToString() + "        " + btns[05].name + ":    " + sqlData["a05"].ToString()
                + "\n" + btns[06].name + ":    " + sqlData["a06"].ToString() + "        " + btns[07].name + ":    " + sqlData["a07"].ToString()
-               + "\n" + btns[08].name + ":    "+sqlData["a08"].ToString()+"        " + btns[09].name + ":    " + sqlData["a09"].ToString()
+               + "\n" + btns[08].name + ":    " + sqlData["a08"].ToString()+  "        " + btns[09].name + ":    " + sqlData["a09"].ToString()
                + "\n" + btns[10].name + ":    " + sqlData["a10"].ToString() + "        " + btns[11].name + ":    " + sqlData["a11"].ToString();
-            barcode = sqlData["bar"].ToString();
+                barcode = sqlData["bar"].ToString();
         }
        
         sqlData.Close();

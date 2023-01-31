@@ -72,7 +72,7 @@ public class joker_result_info : MonoBehaviour
         } 
         if(mode == 1)
         {
-            sqlCmnd.CommandText = "SELECT [star].[dbo].[tasp].bar,[star].[dbo].[tasp].g_id,[star].[dbo].[tasp].clm,[star].[dbo].[tasp].tot,[star].[dbo].[tasp].status,[star].[dbo].[tasp].g_time,[star].[dbo].[tasp].p_time,[star].[dbo].[resultsTaa].result as gameresult FROM [star].[dbo].[tasp],[star].[dbo].[resultsTaa] WHERE resultsTaa.g_date=tasp.g_date and resultsTaa.g_time=tasp.g_time and ter_id=" + GameObject.FindObjectOfType<userManager>().getUserData().id;
+            sqlCmnd.CommandText = "SELECT [star].[dbo].[tasp].bar,[star].[dbo].[tasp].g_id,[star].[dbo].[tasp].clm,[star].[dbo].[tasp].tot,[star].[dbo].[tasp].status,[star].[dbo].[tasp].g_time,[star].[dbo].[tasp].p_time,[star].[dbo].[resultsTaa].result as gameresult FROM [star].[dbo].[tasp],[star].[dbo].[resultsTaa] WHERE resultsTaa.g_date=tasp.g_date and resultsTaa.g_time=tasp.g_time and ter_id="+GameObject.FindObjectOfType<userManager>().getUserData().id+"order by g_id desc";
         }
         sqlData = sqlCmnd.ExecuteReader(CommandBehavior.SingleResult);
     
@@ -88,7 +88,7 @@ public class joker_result_info : MonoBehaviour
             if(mode == 1) {
 
                 GameObject gb = (GameObject)Instantiate(historyprefab, historycontent.transform.position, Quaternion.identity, historycontent.transform);
-                print("making history");
+              
                 gb.GetComponent<jokerhistoryobject>().setData(sqlData["bar"].ToString(), sqlData["bar"].ToString(), sqlData["g_id"].ToString(), sqlData["tot"].ToString(), sqlData["clm"].ToString(), sqlData["status"].ToString(), jkm.serverresulttogameresultconverter(sqlData["gameresult"].ToString()), sqlData["g_time"].ToString(),sqlData["p_time"].ToString());
                
             }

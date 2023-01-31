@@ -36,6 +36,7 @@ public class claimmanager : MonoBehaviour
         GameObject.FindObjectOfType<topbarinfopanel>().updatedata();
         
         removestat();
+        GameObject.FindObjectOfType<barcodeprin>().generateBarcode();
 
     }
     void removestat()
