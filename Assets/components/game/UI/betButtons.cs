@@ -23,11 +23,7 @@ public class betButtons : MonoBehaviour,IPointerClickHandler
     {
 <<<<<<< HEAD
 <<<<<<< HEAD
-<<<<<<< HEAD
         GameObject.FindObjectOfType<jokerGameManager>().winamounttext.text =" ";
-=======
-        GameObject.FindObjectOfType<jokerGameManager>().winamounttext.text ="Win:0";
->>>>>>> parent of d701e08 (update)
 =======
         GameObject.FindObjectOfType<jokerGameManager>().winamounttext.text ="Win:0";
 >>>>>>> parent of d701e08 (update)
