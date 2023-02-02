@@ -7,6 +7,8 @@ using System.Data.SqlClient;
 using System;
 
 
+
+
 public class SQL_manager : MonoBehaviour
 {
    
@@ -27,6 +29,25 @@ public class SQL_manager : MonoBehaviour
     {
        
 
+    }
+    public DateTime get_time()
+    {
+        DateTime dt = new DateTime();
+        SqlCommand sqlCmnd = new SqlCommand();
+        SqlDataReader sqlData = null;
+        sqlCmnd.CommandTimeout = 60;
+        sqlCmnd.Connection = SQLconn;
+        sqlCmnd.CommandType = CommandType.Text;
+        sqlCmnd.CommandText = "SELECT GETDATE() as CurrentTime";//this is the sql command we use to get data about user
+        sqlData = sqlCmnd.ExecuteReader(CommandBehavior.SingleResult);
+        if(sqlData.Read())
+        {
+            dt = DateTime.Parse(sqlData["CurrentTime"].ToString());
+        }
+        sqlData.Close();
+        sqlData.DisposeAsync();
+        dt = DateTime.Parse(dt.ToString("hh:mm:ss tt"));
+        return dt;
     }
     //initSQL() inits the sql connection and opens it for other methods dependend on sql to run 
     public SqlConnection initSQL()
@@ -165,8 +186,9 @@ public class SQL_manager : MonoBehaviour
         sqlCmnd.CommandType = CommandType.Text;
         if (gamename == "joker")
         {
-            sqlCmnd.CommandText = "SELECT * FROM [star].[dbo].[resultsTaa] WHERE g_time=" + "'" + time + "'"+" and g_date="+"'"+ DateTime.Today.ToString("yyyy-MM-dd")+"'";//this is the sql command we use to get data about user
+            sqlCmnd.CommandText = "SELECT * FROM[star].[dbo].[resultsTaa] where g_date = '"+DateTime.Today.ToString("dd-MMM-yyyy 00:00:00.000")+"' and g_time = '"+GameObject.FindObjectOfType<betManager>().gameResultTime+"'";//this is the sql command we use to get data about user
         }
+        print(sqlCmnd.CommandText);
         sqlData = sqlCmnd.ExecuteReader(CommandBehavior.SingleResult);
         if (sqlData.Read())
         {
@@ -174,6 +196,7 @@ public class SQL_manager : MonoBehaviour
             if (gamename == "joker")
             {
                 result = sqlData["result"].ToString()+sqlData["status"].ToString();
+                print(result);
                 sqlData.Close();
                 sqlData.DisposeAsync();
             }
@@ -193,14 +216,14 @@ public class SQL_manager : MonoBehaviour
         sqlCmnd.CommandTimeout = 60;
         sqlCmnd.Connection = SQLconn;
         sqlCmnd.CommandType = CommandType.Text;
-        sqlCmnd.CommandText = "SELECT * FROM [star].[dbo].[g_rule12] WHERE tag=1";//this is the sql command we use to get data about user
+        sqlCmnd.CommandText = "SELECT * FROM [star].[dbo].[g_rule12] WHERE tag=1;";//this is the sql command we use to get data about user
         sqlData = sqlCmnd.ExecuteReader(CommandBehavior.SingleResult);
         if (sqlData.Read())
         {
             if (sqlData["g_time"] != null)
             {
                 string time = sqlData["g_time"].ToString();
-                DateTime date = DateTime.ParseExact(time, "hh:mm:ss tt", System.Globalization.CultureInfo.CurrentCulture);
+                DateTime date = DateTime.Parse(DateTime.Parse(time).ToString("hh:mm:ss tt"));
                
                 if(this.GetComponent<betManager>()!=null)
                 {
@@ -208,7 +231,7 @@ public class SQL_manager : MonoBehaviour
                 }
                 sqlData.Close();
                 sqlData.DisposeAsync();
-                return (date.ToUniversalTime());
+                return (date);
             }
             else
             {

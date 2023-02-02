@@ -23,8 +23,14 @@ public class Claimall : MonoBehaviour
         int betamountwon = 0 ;
         if(sqlData.Read())
         {
+            try
+            {
 
-            betamountwon = Convert.ToInt32(sqlData["totalclaim"].ToString());
+                betamountwon = Convert.ToInt32(sqlData["totalclaim"].ToString());
+            }
+            catch {
+                print("no amount claimed");
+            }
             
         }
         sqlData.Close();

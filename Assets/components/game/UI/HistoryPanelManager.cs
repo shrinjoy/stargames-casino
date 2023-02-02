@@ -27,12 +27,12 @@ public class HistoryPanelManager : MonoBehaviour
     {
         if(donesetuphistorypanel==false)
         {
-            addlast6gameresults();  
+            StartCoroutine(addlast6gameresults()); 
 
             donesetuphistorypanel= true;
         }
     }
-    public void addlast6gameresults()
+    IEnumerator  addlast6gameresults()
     {
         string endtime=GameObject.FindObjectOfType<betManager>().gameResultTime;
         string starttime = DateTime.Parse(endtime).AddMinutes(-12).ToString("hh:mm:ss tt");
@@ -42,7 +42,7 @@ public class HistoryPanelManager : MonoBehaviour
         sqlCmnd.CommandTimeout = 60;
         sqlCmnd.Connection = GameObject.FindObjectOfType<SQL_manager>().SQLconn;
         sqlCmnd.CommandType = CommandType.Text;
-        sqlCmnd.CommandText = "  SELECT  [result],[g_time] FROM [star].[dbo].[resultsTaa] where  g_time between '" + starttime + "' and '" + endtime + "' and g_date='" + DateTime.Today.ToString("MM/dd/yyyy")+" "+ "00:00:00.000'";
+        sqlCmnd.CommandText = "  SELECT  [result],[g_time] FROM [star].[dbo].[resultsTaa] where  g_time between '" + starttime + "' and '" + endtime + "' and g_date='" + DateTime.Today.ToString("dd-MMM-yyyy")+" "+ "00:00:00.000'";
         print(sqlCmnd.CommandText);
         sqlData = sqlCmnd.ExecuteReader(CommandBehavior.SingleResult);
         while(sqlData.Read())
@@ -52,10 +52,11 @@ public class HistoryPanelManager : MonoBehaviour
             // gb.transform.rotation = Quaternion.identity;
             gb.transform.parent = content.transform;
             //
-            print(DateTime.Parse(sqlData["g_time"].ToString()).ToString());
+            
             gb.GetComponent<resultHistory>().setresultdata(DateTime.Parse(sqlData["g_time"].ToString()).ToString(), jkm.serverresulttogameresultconverter(sqlData["result"].ToString()));
         }
         sqlData.Close();
         sqlData.DisposeAsync();
+        yield return null;
     }
 }

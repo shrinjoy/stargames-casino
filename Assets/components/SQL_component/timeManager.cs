@@ -7,49 +7,66 @@ public class timeManager : MonoBehaviour
 {
     // Start is called before the first frame update
     DateTime timetillnextgame;
+    DateTime servertime;
     [HideInInspector]
     public int gameTime;
     [HideInInspector]
-    public int realtime;
+    protected double realtime=0;
     bool isGameSequenceRunning = false;
    
     public void Start()
     {
-        timetillnextgame =GameObject.FindGameObjectWithTag("SQLmanager").GetComponent<SQL_manager>().timeForNextGame();//this.GetComponent<SQL_manager>().timeTillNextGame().Subtract(DateTime.Now);
-        realtime = (int)(timetillnextgame - DateTime.Now.ToUniversalTime()).TotalSeconds;
+        timetillnextgame =GameObject.FindObjectOfType<SQL_manager>().timeForNextGame();//this.GetComponent<SQL_manager>().timeTillNextGame().Subtract(DateTime.Now);
+       
+        servertime = GameObject.FindObjectOfType<SQL_manager>().get_time();
+        print("time till next game:"+timetillnextgame);
+        print("server time:" +servertime );
 
+        double ts =(timetillnextgame - servertime).TotalSeconds;
+        realtime = ts;  
+        print(realtime);
+        StartCoroutine(timeloop());
+       
     }
 
     // Update is called once per frame
-    protected void FixedUpdate()
+   public IEnumerator timeloop() 
     {
 
-        if (realtime <= 0.0f && isGameSequenceRunning==false)
-        {
-            isGameSequenceRunning = true;
-          
-            GameSequence();
-           
-        }
-        else
-        {
+            while (true)
+            {
+                if (realtime <= 0.0f)
+                {
+                  
 
-            realtime = (int)(timetillnextgame - DateTime.Now.ToUniversalTime()).TotalSeconds;
-            gameTime = realtime + 10;
-            
-          
-        }
-        
+                    GameSequence();
+
+                }
+                else
+                {
+
+                realtime -= 1;
+             
+
+                }
+                yield return new WaitForSeconds(1.0f);
+            }
 
     }
     public void resetTimer()
     {
-        timetillnextgame = GameObject.FindGameObjectWithTag("SQLmanager").GetComponent<SQL_manager>().timeForNextGame();//this.GetComponent<SQL_manager>().timeTillNextGame().Subtract(DateTime.Now);       
-        realtime = (int)(timetillnextgame - DateTime.Now.ToUniversalTime()).TotalSeconds;
-        print("clock reseted new game in :" + realtime);
-        isGameSequenceRunning = false;
+        timetillnextgame = GameObject.FindObjectOfType<SQL_manager>().timeForNextGame();//this.GetComponent<SQL_manager>().timeTillNextGame().Subtract(DateTime.Now);
+
+        servertime = GameObject.FindObjectOfType<SQL_manager>().get_time();
+        print("time till next game:" + timetillnextgame);
+        print("server time:" + servertime);
+
+        double ts = (timetillnextgame - servertime).TotalSeconds;
+        realtime = ts;
+        print(realtime);
     }
 
     public virtual void GameSequence() { }
     
+
 }

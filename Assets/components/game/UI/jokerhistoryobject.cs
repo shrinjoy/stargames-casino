@@ -20,6 +20,18 @@ public class jokerhistoryobject : MonoBehaviour
         gid.text = game_id;
         play.text = played;
          win.text = won;
+        if(claimed == "Print")
+        {
+            claimed = "N/W";
+        }
+        else if (claimed == "Prize")
+        {
+            claimed = "PZ";
+        }
+        else if (claimed == "Claimed")
+        {
+            claimed = "Claimed";
+        }
         claim.text = claimed;   
         result.text = results;  
         drawtime.text = drawingtime;

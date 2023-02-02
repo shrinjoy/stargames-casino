@@ -39,6 +39,7 @@ public class jokerGameManager : timeManager
     [SerializeField] AudioClip resultmarkerding;
     [SerializeField] AudioClip seceighttick;
     [SerializeField] AudioClip betaccepted;
+    public bool sequenceended=true;
     login lg = new login();
     private void Start()
     {
@@ -111,8 +112,8 @@ public class jokerGameManager : timeManager
     private void Update()
     {
 
-        int minutes = Mathf.FloorToInt(realtime / 60F);
-        int seconds = Mathf.FloorToInt(realtime - minutes * 60);
+        int minutes = Mathf.FloorToInt((float)realtime / 60F);
+        int seconds = Mathf.FloorToInt((float)realtime - minutes * 60);
         string niceTime = string.Format("{0:0}:{1:00}", minutes, seconds);
         shadowresult.text = resulttext.text;
         shadowresult.enabled = resulttext.isActiveAndEnabled;
@@ -139,17 +140,7 @@ public class jokerGameManager : timeManager
             this.GetComponent<AudioSource>().Play();
             isdoneplayingtick = true;
         }
-        if (showresult == true)
-        {
-            this.GetComponent<AudioSource>().clip = spinnersound;
-            this.GetComponent<AudioSource>().Play();
-            
-                cr = StartCoroutine(showresulttext());
-            
-                
-            
-          
-        }
+    
       
     }
 
@@ -192,6 +183,7 @@ public class jokerGameManager : timeManager
     {
         if (sqlm.canLogin(sqlm.GetComponent<userManager>().getUserData().id, sqlm.GetComponent<userManager>().getUserData().password, lg.GetMACAddress()) == true)
         {
+            DateTime currenttime = sqlm.get_time();
             if (Convert.ToInt32(GameObject.FindObjectOfType<topbarinfopanel>().balancetext.text) >= GameObject.FindObjectOfType<totalbet>().totalbetamount && GameObject.FindObjectOfType<totalbet>().totalbetamount > 0)
             {
                 string status = "Print";
@@ -203,7 +195,7 @@ public class jokerGameManager : timeManager
                     "g_date,status,ter_id,g_id,g_time,p_time,bar,gm,flag) values ("
                     + btns[0].betplaced + "," + btns[1].betplaced + "," + btns[2].betplaced + "," + btns[3].betplaced + "," + btns[4].betplaced + "," + btns[5].betplaced + "," + btns[6].betplaced + "," + btns[7].betplaced + "," + btns[8].betplaced + "," + btns[9].betplaced + "," + btns[10].betplaced + "," + btns[11].betplaced
                     + "," + GameObject.FindObjectOfType<totalbet>().totalbetamount + "," + GameObject.FindObjectOfType<totalbet>().totalbetamount + ","
-                    + "'" + DateTime.Today + "'" + "," + "'" + status + "'" + "," + GameObject.FindObjectOfType<userManager>().getUserData().id + "," + GameObject.FindObjectOfType<betManager>().gameResultId + "," + "'" + GameObject.FindObjectOfType<betManager>().gameResultTime + "'" + "," + "'" + DateTime.Now + "'" + "," + "'" + barcode + "'" + "," + "'" + gm + "'" + "," + 2 + ")";
+                    + "'" + DateTime.Today + "'" + "," + "'" + status + "'" + "," + GameObject.FindObjectOfType<userManager>().getUserData().id + "," + GameObject.FindObjectOfType<betManager>().gameResultId + "," + "'" + GameObject.FindObjectOfType<betManager>().gameResultTime + "'" + "," + "'" + currenttime + "'" + "," + "'" + barcode + "'" + "," + "'" + gm + "'" + "," + 2 + ")";
                 print(command);
                 SqlCommand sqlCmnd = new SqlCommand();
                 SqlDataReader sqldata = null;
@@ -262,19 +254,25 @@ public class jokerGameManager : timeManager
     {
         try
         {
-            showresult = true;
-
-            print("game sequnce started");
-
-            result = sqlm.GetComponent<betManager>().getResult("joker");
-
+            if (sequenceended == true)
+            {
+                result = sqlm.GetComponent<betManager>().getResult("joker");
+                if (result != null && sequenceended == true)
+                {
+                    print("game sequnce started");
+                   
+                    sequenceended = false;
+                    cr = StartCoroutine(showresulttext());
+                }
+            }
         }
-        catch
+        catch (Exception ex)
         {
+            print("failed to get result");
             this.GameSequence();
         }
 
-
+        
     }
     public string serverresulttogameresultconverter(string betresulttext)
     {
@@ -399,9 +397,10 @@ public class jokerGameManager : timeManager
     {
 
 
-       
-        
-            print(result);
+
+        this.GetComponent<AudioSource>().clip = spinnersound;
+        this.GetComponent<AudioSource>().Play();
+        print(result);
             starticonanimation.SetActive(true);
             resulttext.enabled = false;
             resultmarker.SetActive(false);
@@ -467,7 +466,8 @@ public class jokerGameManager : timeManager
             {
                 autoclaim();
             }
-           
+        result = null;
+        sequenceended = true;
             yield return null;
         
         
@@ -490,17 +490,23 @@ public class jokerGameManager : timeManager
         int intwinamount=0;
         while (sqlData.Read())
         {
+            if (sqlData["clm"] != null || sqlData["clm"] != "Null")
+            {
+                intwinamount += Convert.ToInt32(sqlData["clm"].ToString());
+            }
 
-            intwinamount += Convert.ToInt32(sqlData["clm"].ToString());
+           
         }
         sqlData.Close();
         sqlData.DisposeAsync();
         if (intwinamount > 0)
         {
+            print("winamount:"+intwinamount);
             winamounttext.text = "WIN:" + intwinamount;
         }
-        if (intwinamount > 0)
+        if (intwinamount <= 0)
         {
+            print("no win amount");
             winamounttext.text = " ";
         }
 
