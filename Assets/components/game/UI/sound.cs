@@ -23,21 +23,13 @@ public class sound : MonoBehaviour
         {
             soundon = false;
             this.GetComponent<Image>().sprite = soundofficon;
-            foreach (AudioSource al in GameObject.FindObjectsOfType<AudioSource>())
-            {
-                al.enabled = soundon;
-            }
+            AudioListener.pause = true;
         }
         else if (soundon == false)
         {
             soundon = true;
             this.GetComponent<Image>().sprite = soundonicon;
-            foreach (AudioSource al in GameObject.FindObjectsOfType<AudioSource>())
-            {
-                {
-                    al.enabled = soundon;
-                }
-            }
+            AudioListener.pause = false;
             //
         }
 
