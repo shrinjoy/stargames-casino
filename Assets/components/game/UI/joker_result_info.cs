@@ -72,10 +72,10 @@ public class joker_result_info : MonoBehaviour
         } 
         if(mode == 1)
         {
-            sqlCmnd.CommandText = "SELECT [star].[dbo].[tasp].bar,[star].[dbo].[tasp].g_id,[star].[dbo].[tasp].clm,[star].[dbo].[tasp].tot,[star].[dbo].[tasp].status,[star].[dbo].[tasp].g_time,[star].[dbo].[tasp].p_time,[star].[dbo].[resultsTaa].result as gameresult FROM [star].[dbo].[tasp],[star].[dbo].[resultsTaa] WHERE resultsTaa.g_date=tasp.g_date and resultsTaa.g_time=tasp.g_time and ter_id="+GameObject.FindObjectOfType<userManager>().getUserData().id+"order by g_id desc";
+            sqlCmnd.CommandText = "SELECT [star].[dbo].[tasp].bar,[star].[dbo].[tasp].g_id,[star].[dbo].[tasp].g_date,[star].[dbo].[tasp].clm,[star].[dbo].[tasp].tot,[star].[dbo].[tasp].status,[star].[dbo].[tasp].g_time,[star].[dbo].[tasp].p_time,[star].[dbo].[resultsTaa].result as gameresult FROM [star].[dbo].[tasp],[star].[dbo].[resultsTaa] WHERE resultsTaa.g_date=tasp.g_date and resultsTaa.g_time=tasp.g_time and ter_id=" + GameObject.FindObjectOfType<userManager>().getUserData().id + " and [star].[dbo].[tasp].g_date='"+DateTime.Today.ToString("dd-MMM-yyyy")+"' order by g_id desc";
         }
         sqlData = sqlCmnd.ExecuteReader(CommandBehavior.SingleResult);
-    
+        print(sqlCmnd.CommandText);
         while(sqlData.Read())
         {
             if (mode == 0)

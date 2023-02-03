@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
 using UnityEngine;
+using System;
 
 public class report_info_data : MonoBehaviour
 {
@@ -23,8 +24,9 @@ public class report_info_data : MonoBehaviour
         sqlCmnd.CommandTimeout = 60;
         sqlCmnd.Connection = GameObject.FindObjectOfType<SQL_manager>().SQLconn;
         sqlCmnd.CommandType = CommandType.Text;
-        sqlCmnd.CommandText = "select distinct g.term_name,n.ter_id plyid,ISNULL(sum(qty),0) as ppoint,ISNULL(sum(clm),0) as wpoint,\r\nISNULL(sum(qty),0)-ISNULL(sum(clm),0) as epoint,ISNULL(sum(qty),0)-ISNULL(sum(clm),0)-(ISNULL(sum(qty),0)*g.comm/100) as npoint,\r\nISNULL(sum(qty),0)*g.comm/100 as ppoints from tasp n, g_master g \r\nwhere g.term_id=n.ter_id and n.id is not null and n.status not in('Canceled') and g_date between '"+fromcalender.date+"' and  '"+tocalender.date+"'\r\ngroup by n.ter_id,g.term_name,g.comm";//this is the sql command we use to get data about user
+        sqlCmnd.CommandText = "select distinct g.term_name,n.ter_id plyid,ISNULL(sum(qty),0) as ppoint,ISNULL(sum(clm),0) as wpoint,\r\nISNULL(sum(qty),0)-ISNULL(sum(clm),0) as epoint,ISNULL(sum(qty),0)-ISNULL(sum(clm),0)-(ISNULL(sum(qty),0)*g.comm/100) as npoint,\r\nISNULL(sum(qty),0)*g.comm/100 as ppoints from tasp n, g_master g \r\nwhere g.term_id=n.ter_id and n.id is not null and n.status not in('Canceled') and n.ter_id='"+GameObject.FindObjectOfType<userManager>().getUserData().id+"' and g_date between '" + DateTime.Parse(fromcalender.date.ToString()).ToString("dd-MMM-yyyy") + "' and  '" + DateTime.Parse(tocalender.date.ToString()).ToString("dd-MMM-yyyy") + "'group by n.ter_id,g.term_name,g.comm";
         sqlData = sqlCmnd.ExecuteReader(CommandBehavior.SingleResult);
+        print(sqlCmnd.CommandText);
         if(sqlData.Read())
         {
             from_time.text = fromcalender.date;

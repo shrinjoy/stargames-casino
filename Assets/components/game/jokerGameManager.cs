@@ -126,6 +126,9 @@ public class jokerGameManager : timeManager
         {
           // timer.color = Color.red;
             bettext.text = "no more bets please ";
+            GameObject.FindObjectOfType<clearbet>().clearbets();
+            GameObject.FindObjectOfType<totalbet>().totalbetamount = 0;
+            //
             infopanel.SetActive(false);
             noinputpanel.SetActive(true);
             this.GetComponent<AudioSource>().clip = nomorebet;
@@ -195,7 +198,7 @@ public class jokerGameManager : timeManager
                     "g_date,status,ter_id,g_id,g_time,p_time,bar,gm,flag) values ("
                     + btns[0].betplaced + "," + btns[1].betplaced + "," + btns[2].betplaced + "," + btns[3].betplaced + "," + btns[4].betplaced + "," + btns[5].betplaced + "," + btns[6].betplaced + "," + btns[7].betplaced + "," + btns[8].betplaced + "," + btns[9].betplaced + "," + btns[10].betplaced + "," + btns[11].betplaced
                     + "," + GameObject.FindObjectOfType<totalbet>().totalbetamount + "," + GameObject.FindObjectOfType<totalbet>().totalbetamount + ","
-                    + "'" + DateTime.Today + "'" + "," + "'" + status + "'" + "," + GameObject.FindObjectOfType<userManager>().getUserData().id + "," + GameObject.FindObjectOfType<betManager>().gameResultId + "," + "'" + GameObject.FindObjectOfType<betManager>().gameResultTime + "'" + "," + "'" + currenttime + "'" + "," + "'" + barcode + "'" + "," + "'" + gm + "'" + "," + 2 + ")";
+                    + "'" + sqlm.server_day + "'" + "," + "'" + status + "'" + "," + GameObject.FindObjectOfType<userManager>().getUserData().id + "," + GameObject.FindObjectOfType<betManager>().gameResultId + "," + "'" + GameObject.FindObjectOfType<betManager>().gameResultTime + "'" + "," + "'" + currenttime + "'" + "," + "'" + barcode + "'" + "," + "'" + gm + "'" + "," + 2 + ")";
                 print(command);
                 SqlCommand sqlCmnd = new SqlCommand();
                 SqlDataReader sqldata = null;
@@ -484,7 +487,7 @@ public class jokerGameManager : timeManager
         sqlCmnd.CommandTimeout = 60;
         sqlCmnd.Connection = sqlm.SQLconn;
         sqlCmnd.CommandType = CommandType.Text; 
-        sqlCmnd.CommandText = "SELECT [clm] FROM [star].[dbo].[tasp] where g_id="+GameObject.FindObjectOfType<betManager>().gameResultId +" and ter_id="+ GameObject.FindObjectOfType<userManager>().getUserData().id+"and status='Prize' and g_time='"+GameObject.FindObjectOfType<betManager>().gameResultTime.ToString()+"' and g_date='"+DateTime.Today.ToString("yyyy-MM-dd 00:00:00.000")+"'";//this is the sql command we use to get data about user
+        sqlCmnd.CommandText = "SELECT [clm] FROM [star].[dbo].[tasp] where g_id="+GameObject.FindObjectOfType<betManager>().gameResultId +" and ter_id="+ GameObject.FindObjectOfType<userManager>().getUserData().id+"and status='Prize' and g_time='"+GameObject.FindObjectOfType<betManager>().gameResultTime.ToString()+"' and g_date='"+sqlm.server_day.ToString("yyyy-MM-dd 00:00:00.000")+"'";//this is the sql command we use to get data about user
         print(sqlCmnd.CommandText);
         sqlData = sqlCmnd.ExecuteReader(CommandBehavior.SingleResult);
         int intwinamount=0;

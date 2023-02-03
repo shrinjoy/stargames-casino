@@ -14,6 +14,7 @@ public class SQL_manager : MonoBehaviour
    
    public  SqlConnection SQLconn;
    public TMPro.TMP_Text warningtext;
+    public DateTime server_day;
     private void OnEnable()
     {
        // Screen.SetResolution(1024, 768,FullScreenMode.Windowed);
@@ -46,6 +47,7 @@ public class SQL_manager : MonoBehaviour
         }
         sqlData.Close();
         sqlData.DisposeAsync();
+        server_day = DateTime.Parse(dt.ToString("dd-MMM-yyyy"));
         dt = DateTime.Parse(dt.ToString("hh:mm:ss tt"));
         return dt;
     }
@@ -186,7 +188,7 @@ public class SQL_manager : MonoBehaviour
         sqlCmnd.CommandType = CommandType.Text;
         if (gamename == "joker")
         {
-            sqlCmnd.CommandText = "SELECT * FROM[star].[dbo].[resultsTaa] where g_date = '"+DateTime.Today.ToString("dd-MMM-yyyy 00:00:00.000")+"' and g_time = '"+GameObject.FindObjectOfType<betManager>().gameResultTime+"'";//this is the sql command we use to get data about user
+            sqlCmnd.CommandText = "SELECT * FROM[star].[dbo].[resultsTaa] where g_date = '"+server_day.ToString("dd-MMM-yyyy 00:00:00.000")+"' and g_time = '"+GameObject.FindObjectOfType<betManager>().gameResultTime+"'";//this is the sql command we use to get data about user
         }
         print(sqlCmnd.CommandText);
         sqlData = sqlCmnd.ExecuteReader(CommandBehavior.SingleResult);
