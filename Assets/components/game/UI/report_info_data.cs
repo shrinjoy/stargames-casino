@@ -24,18 +24,29 @@ public class report_info_data : MonoBehaviour
         sqlCmnd.CommandTimeout = 60;
         sqlCmnd.Connection = GameObject.FindObjectOfType<SQL_manager>().SQLconn;
         sqlCmnd.CommandType = CommandType.Text;
-        sqlCmnd.CommandText = "select distinct g.term_name,n.ter_id plyid,ISNULL(sum(qty),0) as ppoint,ISNULL(sum(clm),0) as wpoint,\r\nISNULL(sum(qty),0)-ISNULL(sum(clm),0) as epoint,ISNULL(sum(qty),0)-ISNULL(sum(clm),0)-(ISNULL(sum(qty),0)*g.comm/100) as npoint,\r\nISNULL(sum(qty),0)*g.comm/100 as ppoints from tasp n, g_master g \r\nwhere g.term_id=n.ter_id and n.id is not null and n.status not in('Canceled') and n.ter_id='"+GameObject.FindObjectOfType<userManager>().getUserData().id+"' and g_date between '" + DateTime.Parse(fromcalender.date.ToString()).ToString("dd-MMM-yyyy") + "' and  '" + DateTime.Parse(tocalender.date.ToString()).ToString("dd-MMM-yyyy") + "'group by n.ter_id,g.term_name,g.comm";
-        sqlData = sqlCmnd.ExecuteReader(CommandBehavior.SingleResult);
+        sqlCmnd.CommandText = "select distinct g.term_name,n.ter_id plyid,ISNULL(sum(qty),0) as sale_point,ISNULL(sum(clm),0) as win_point,ISNULL(sum(qty),0)-ISNULL(sum(clm),0) as operator_point,ISNULL(sum(qty),0)-ISNULL(sum(clm),0)-(ISNULL(sum(qty),0)*g.comm/100) as ntp_point,ISNULL(sum(qty),0)*g.comm/100 as commision_points from tasp n, g_master g where g.term_id=n.ter_id and n.id is not null and n.status not in('Canceled') and n.ter_id='" + GameObject.FindObjectOfType<userManager>().getUserData().id + "' and g_date between '" + fromcalender.date + "' and  '" + tocalender.date + "'group by n.ter_id,g.term_name,g.comm";
+
+
+            sqlData = sqlCmnd.ExecuteReader(CommandBehavior.SingleResult);
         print(sqlCmnd.CommandText);
         if(sqlData.Read())
         {
             from_time.text = fromcalender.date;
             to_time.text=tocalender.date;
-            salepoint.text = sqlData["ppoint"].ToString();
-            winpoint.text = sqlData["wpoint"].ToString();
-            commipoint.text = sqlData["epoint"].ToString();
-            ntppoint.text = sqlData["npoint"].ToString();
-            operatorpoint.text = sqlData["ppoint"].ToString();
+            salepoint.text = sqlData["sale_point"].ToString();
+            winpoint.text = sqlData["win_point"].ToString();
+            commipoint.text =  sqlData["operator_point"].ToString();
+            operatorpoint.text = sqlData["ntp_point"].ToString();
+            if (Convert.ToInt32(sqlData["ntp_point"].ToString()) < 0)
+            {
+                int x = Convert.ToInt32(sqlData["operator_point"].ToString()) - Convert.ToInt32(sqlData["ntp_point"].ToString());
+                ntppoint.text = x.ToString() ;
+            }
+            else if (Convert.ToInt32(sqlData["ntp_point"].ToString()) > 0)
+            {
+                ntppoint.text = sqlData["commision_points"].ToString();
+            }
+           
             print(sqlData["plyid"].ToString());
         }
         sqlData.Close();
