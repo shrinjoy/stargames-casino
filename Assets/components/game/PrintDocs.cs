@@ -18,7 +18,7 @@ public class PrintDocs : MonoBehaviour
 
         p.PrintPage += delegate (object sender1, PrintPageEventArgs e1)
         {
-            e1.Graphics.DrawImage(GenerateBarcode("12345", BarcodeFormat.CODE_128, 256, 256), 0,250, 256, 25);
+            e1.Graphics.DrawImage(GenerateBarcode(barcodedata, BarcodeFormat.CODE_128, 256, 256), 0,250, 256, 25);
             e1.Graphics.DrawString(s, new System.Drawing.Font("Times New Roman",9), new SolidBrush(System.Drawing.Color.Black), new RectangleF(0, 0, p.DefaultPageSettings.PrintableArea.Width, p.DefaultPageSettings.PrintableArea.Height));
             e1.Graphics.DrawString(barcodedata, new System.Drawing.Font("Times New Roman", 12), new SolidBrush(System.Drawing.Color.Black), new RectangleF(20, 275, p.DefaultPageSettings.PrintableArea.Width, p.DefaultPageSettings.PrintableArea.Height));
 
