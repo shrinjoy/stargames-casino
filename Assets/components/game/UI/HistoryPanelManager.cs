@@ -42,7 +42,10 @@ public class HistoryPanelManager : MonoBehaviour
         sqlCmnd.CommandTimeout = 60;
         sqlCmnd.Connection = GameObject.FindObjectOfType<SQL_manager>().SQLconn;
         sqlCmnd.CommandType = CommandType.Text;
-        sqlCmnd.CommandText = "  SELECT  [result],[g_time] FROM [star].[dbo].[resultsTaa] where  g_time between '" + starttime + "' and '" + endtime + "' and g_date='" + GameObject.FindObjectOfType<SQL_manager>().server_day.ToString("dd-MMM-yyyy")+" "+ "00:00:00.000'";
+        sqlCmnd.CommandText = " SELECT  * FROM (SELECT top(10) * from [star].[dbo].[resultsTaa]    order by [star].[dbo].[resultsTaa].id desc) as subquery order by subquery.id asc ";
+        // sqlCmnd.CommandText = " SELECT top(10) * FROM [star].[dbo].[resultsTaa]   order by [star].[dbo].[resultsTaa].id desc";
+
+
         print(sqlCmnd.CommandText);
         sqlData = sqlCmnd.ExecuteReader(CommandBehavior.SingleResult);
         while(sqlData.Read())
