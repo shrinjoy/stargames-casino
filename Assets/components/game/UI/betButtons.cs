@@ -29,7 +29,7 @@ public class betButtons : MonoBehaviour,IPointerClickHandler
         }
         else if (eventData.button == PointerEventData.InputButton.Right)
         {
-            removebet();
+           reducebet();
         }
         else if (eventData.button == PointerEventData.InputButton.Middle)
         {
@@ -57,6 +57,20 @@ public class betButtons : MonoBehaviour,IPointerClickHandler
 
 
     }
+
+    public void reducebet()
+    {
+        if((betplaced - GameObject.FindObjectOfType<jokerGameManager>().coinselected) >0)
+        {
+            betplaced-= GameObject.FindObjectOfType<jokerGameManager>().coinselected;
+            text.text = betplaced.ToString();
+        }
+        else
+        {
+            removebet();
+        }
+    }
+
     public void removebet()
     {
         
